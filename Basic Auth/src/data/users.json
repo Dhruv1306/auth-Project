@@ -1,0 +1,32 @@
+[
+    {
+        "username": "Dhruv",
+        "email": "dhruv@gmail.com",
+        "password": "dhruv@123",
+        "isAdmin": true
+    },
+    {
+        "username": "Gautam",
+        "email": "gautam@gmail.com",
+        "password": "gautam@123",
+        "isAdmin": false
+    },
+    {
+        "username": "Yashita",
+        "email": "yashii@gmail.com",
+        "password": "yashii123",
+        "isAdmin": true
+    },
+    {
+        "username": "Ritika",
+        "email": "ritii@gmail.com",
+        "password": "riti123",
+        "isAdmin": false
+    },
+    {
+        "username": "abc",
+        "email": "abc@gmail.com",
+        "password": "abc@123",
+        "isAdmin": false
+    }
+]

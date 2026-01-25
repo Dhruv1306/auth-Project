@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            background-color: #2c3e50;
+            color: #fff;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar .logo {
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .navbar .username {
+            background: #34495e;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+        }
+
+        .dashboard-content {
+            padding: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Dashboard</div>
+        <div id="username"></div>      <!--A Placeholder element for my username  // Also note, that the script replaces the entire content of the <div> with "Welcome..." -->
+    </nav>
+    
+    <div class="dashboard-content">
+        <h1>Admin Dashboard</h1>
+        <!-- Add more dashboard content here -->
+    </div>
+
+    <!-- <script>           // This script works, if we are passing PATH PARAMETERS(params) in the URL during "res.redirect('/dashboard/....')"
+        // Example: Set user name dynamically
+        const pathParts = location.pathname.split('/').pop();
+        const userName = decodeURIComponent(pathParts); // ✅ Converts %20 back to space
+        // const userName = pathParts[pathParts.length - 1]; // Get the last part of the URL as user name
+        document.getElementById('username').textContent = `Welcome, ${userName || 'Guest'}`;    
+    </script> -->
+
+    <script>        // This script works, if we are passing QUERY PARAMETERS(query) in the URL during "res.redirect('/dashboard/....')"
+        document.getElementById('username').textContent = `Welcome, ${decodeURIComponent(new URLSearchParams(location.search).get('name') || 'Guest')}`;
+    </script>
+    
+</body>
+</html>
+
+<!-- ".pop()" removes and returns the last item in the array — which is exactly what you want: the username.
+ -->
