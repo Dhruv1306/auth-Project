@@ -1,0 +1,27 @@
+// Registered Users - Same as your Basic Auth users.json
+// In production, this would be a database
+
+[
+  {
+    "id": "user_001",
+    "username": "dhruv",
+    "email": "dhruv@example.com",
+    "password": "password123",
+    "isAdmin": true,
+    "profile": {
+      "name": "Dhruv",
+      "picture": "https://api.dicebear.com/7.x/avataaars/svg?seed=dhruv"
+    }
+  },
+  {
+    "id": "user_002",
+    "username": "john",
+    "email": "john@example.com",
+    "password": "john123",
+    "isAdmin": false,
+    "profile": {
+      "name": "John Doe",
+      "picture": "https://api.dicebear.com/7.x/avataaars/svg?seed=john"
+    }
+  }
+]

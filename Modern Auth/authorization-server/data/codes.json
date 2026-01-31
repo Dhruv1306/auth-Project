@@ -1,0 +1,5 @@
+// Temporary storage for authorization codes
+// These are exchanged for tokens - short-lived and single-use
+// In production, use Redis or similar
+
+{}

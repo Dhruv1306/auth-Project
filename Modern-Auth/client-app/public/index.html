@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OAuth 2.0 PKCE Demo</title>
+    <link rel="stylesheet" href="/src/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to OAuth 2.0  + PKCE Demo</h1>
+        <p>Click the button below to login securely</p>
+        <button onclick="login()">Login with OAuth</button>  <!-- This login button works with the Authorization server. -->
+    </div>
+
+    <!-- Load scripts in order (dependencies first) -->
+    <script src="/src/js/pkce.js"></script>
+    <script src="/src/js/storage.js"></script>
+    <script src="/src/js/auth.js"></script>
+</body>
+</html>

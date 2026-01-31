@@ -1,0 +1,40 @@
+{
+  "dashboard": {
+    "title": "Welcome to OAuth 2.0 Protected Dashboard",
+    "description": "You've successfully accessed protected resources using your access token.",
+    "features": [
+      "Stateless authentication with JWT",
+      "PKCE protection against code interception",
+      "Refresh tokens for seamless session renewal",
+      "Role-based access control"
+    ]
+  },
+  "adminData": {
+    "title": "Admin Control Panel",
+    "description": "This data is only accessible with admin role",
+    "secrets": [
+      "System health: All services operational",
+      "Active users: 1,234",
+      "API calls today: 56,789"
+    ]
+  },
+  "stats": {
+    "totalUsers": 150,
+    "activeTokens": 45,
+    "apiCallsToday": 2847
+  },
+  "users": [
+    {
+      "id": "user_001",
+      "username": "dhruv",
+      "email": "dhruv@example.com",
+      "role": "admin"
+    },
+    {
+      "id": "user_002",
+      "username": "john",
+      "email": "john@example.com",
+      "role": "user"
+    }
+  ]
+}
