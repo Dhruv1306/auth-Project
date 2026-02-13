@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Consent</title>
+  </head>
+  <body>
+    <h2>Consent</h2>
+    <p>App <b><%= client_id %></b> is requesting access to your account.</p>
+    <p>Requested scopes: <b><%= scope %></b></p>
+    <form method="POST" action="/consent">
+      <input type="hidden" name="client_id" value="<%= client_id %>" />
+      <input type="hidden" name="redirect_uri" value="<%= redirect_uri %>" />
+      <input type="hidden" name="scope" value="<%= scope %>" />
+      <input type="hidden" name="user_id" value="<%= user.id %>" />
+      <input
+        type="hidden"
+        name="code_challenge"
+        value="<%= code_challenge %>"
+      />
+      <input
+        type="hidden"
+        name="code_challenge_method"
+        value="<%= code_challenge_method %>"
+      />
+      <button type="submit">Allow</button>
+    </form>
+  </body>
+</html>

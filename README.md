@@ -4,7 +4,7 @@
 
 #### cmds
 
-npm i express express-session nodemon jsonwebtoken uuid cors
+npm i express express-session nodemon jsonwebtoken uuid cors mysql2 dotenv
 
 //  uuid  --  Generates `**Universally Unique Identifiers`** - random strings guaranteed to be unique.
 
@@ -43,10 +43,7 @@ We're building 3 components:
 2. **Client App** (Port 3000) - The frontend application users interact with
 3. **Resource Server** (Port 3002) - Protected API that requires valid tokens\
 
-
-
 ------------------First, let's create the Client App------------------------------------
-
 
 ->->->-> Firstly, create the "client-app" folder structure.
 
@@ -65,8 +62,6 @@ PKCE prevents authorization code interception attacks. Here's how it works:
 5. The server hashes the verifier and compares it to the stored challenge
 
 If someone intercepts the authorization code, they can't use it without the original verifier!
-
-
 
 ->->->-> Now, build the login flow, "auth.js"
 
@@ -88,21 +83,201 @@ If someone intercepts the authorization code, they can't use it without the orig
    ↓
 8. Tokens stored, user is logged in!
 
-
 ->->->-> Now, Let's create the HTML Pages
 
 1. index.html
 2. callback.html
 3. dashboard.html
 
-
 ->->->Also, we need to create the "api.js" file. This will sends the token with each request  ( when you request for some data from the resource's server ),  to prove you're logged in.
 
-
-->->->-> Now, let's create "server.js" file. This is the last step for the Client App. 
+->->->-> Now, let's create "server.js" file. This is the last step for the Client App.
 
 **--------------------------Client App is complete! ✅---------------------------------**
 
-
-
 ------Now, let's **build the Authorization Server (the brain of OAuth)------**
+
+->->->-> Firstly let's create the "folder-structure" for "authorization-server".
+
+->->->-> Also, as we are gonna use MySQL for our Database, So, let's create a db in the MySQL.
+
+`
+
+-- Create database
+CREATE DATABASE oauth_db;
+
+USE oauth_db;
+
+-- Users table
+CREATE TABLE users (
+    id VARCHAR(50) PRIMARY KEY,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- OAuth Clients table
+CREATE TABLE clients (
+    client_id VARCHAR(100) PRIMARY KEY,
+    client_name VARCHAR(100) NOT NULL,
+    redirect_uris TEXT NOT NULL,
+    allowed_scopes TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Authorization Codes table
+CREATE TABLE authorization_codes (
+    code VARCHAR(255) PRIMARY KEY,
+    client_id VARCHAR(100) NOT NULL,
+    user_id VARCHAR(50) NOT NULL,
+    redirect_uri VARCHAR(255) NOT NULL,
+    scope VARCHAR(255),
+    code_challenge VARCHAR(255),
+    code_challenge_method VARCHAR(10),
+    expires_at TIMESTAMP NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Insert sample users
+INSERT INTO users (id, email, password, name) VALUES
+('user-1', 'john@example.com', 'password123', 'John Doe'),
+('user-2', 'jane@example.com', 'password456', 'Jane Smith');
+
+-- Insert sample client
+INSERT INTO clients (client_id, client_name, redirect_uris, allowed_scopes) VALUES
+('my-client-app', 'My OAuth Client', 'http://localhost:3000/callback.html', 'openid,profile,email');
+
+`
+
+NOTE : In our database, I had used "VARCHAR" for "id" instead of "INT".
+
+    - if we did " id INT PRIMARY KEY AUTO_INCREMENT ", we have thses things :
+
+| Pros                         | Cons                                        |
+| ---------------------------- | ------------------------------------------- |
+| ✅ Smaller storage (4 bytes) | ❌ Sequential = predictable (security risk) |
+| ✅ Faster comparisons        | ❌ Exposes how many users you have          |
+| ✅ Simpler                   | ❌ Problems when merging databases          |
+
+    - But we did, " id VARCHAR(50) PRIMARY KEY, ", now we get :
+
+| Pros                                | Cons                           |
+| ----------------------------------- | ------------------------------ |
+| ✅ Random = unpredictable (secure)  | ❌ Larger storage (36+ bytes)  |
+| ✅ Can generate ID before inserting | ❌ Slightly slower comparisons |
+| ✅ Works across distributed systems | ❌ Harder to read              |
+
+So, why we choosed VARCHAR ?
+
+    - Cause for OAuth / security systems, we use UUIDs because then it's become kind off impossible to guess user IDs  & no risk of info leak. And therefore we use VARCHAR cause we can add both alphanumeric values in it.
+
+->->->-> Now, what we need to do next :
+
+| #  | File                                   | Status    | Purpose                  |
+| -- | -------------------------------------- | --------- | ------------------------ |
+| 1  | `src/config/index.js`                | Need code | JWT & server settings    |
+| 2  | `src/config/database.js`             | Need code | MySQL connection         |
+| 3  | `src/services/pkceService.js`        | Need code | Verify PKCE challenge    |
+| 4  | `src/services/tokenService.js`       | Need code | Generate JWT tokens      |
+| 5  | `src/controllers/authController.js`  | Need code | Handle login & consent   |
+| 6  | `src/controllers/tokenController.js` | Need code | Exchange code for tokens |
+| 7  | `src/middleware/authMiddleware.js`   | Need code | Validate requests        |
+| 8  | `src/routes/oauthRoutes.js`          | Need code | Define endpoints         |
+| 9  | `src/views/login.html`               | Need code | Login form               |
+| 10 | `src/views/consent.html`             | Need code | Consent screen           |
+| 11 | `server.js`                          | Need code | Main entry point         |
+
+->->->-> Let's create, `src/config/index.js` & `src/config/database.js`
+
+->->->->  Our current progess :
+
+authorization-server/
+├── .env                 ✅ Create this (Step 3)
+├── .gitignore           ✅ Create this (Step 2)
+├── package.json         ✅ Update this (Step 1)
+├── package-lock.json    ✅ Auto-generated after npm install
+├── node_modules/        ✅ Auto-generated after npm install
+├── server.js            ⏳ Next
+└── src/
+    ├── config/
+    │   ├── index.js     ✅ Create this (Step 4)
+    │   └── database.js  ✅ Create this (Step 5)
+    ├── controllers/
+    │   ├── authController.js      ⏳ Coming soon
+    │   └── tokenController.js     ⏳ Coming soon
+    ├── middleware/
+    │   └── authMiddleware.js      ⏳ Coming soon
+    ├── routes/
+    │   └── oauthRoutes.js         ⏳ Coming soon
+    ├── services/
+    │   ├── pkceService.js         ⏳ Coming soon
+    │   └── tokenService.js        ⏳ Coming soon
+    └── views/
+        ├── login.html             ⏳ Coming soon
+        └── consent.html           ⏳ Coming soon
+
+
+---
+
+authorization-server / database.js :
+
+### What it does:
+
+* Imports the MySQL library (with promise support)
+* Loads your config (which reads from `.env`)
+* Creates a connection pool (best practice for web apps)
+* Exports the pool so other files can use it
+
+---
+
+
+
+-> ->-> Let’s move on to the next core part:  **PKCE validation** .
+
+### What it does:
+
+* Imports Node’s `crypto` module for hashing
+* Implements `base64UrlEncode` for URL-safe encoding (required by PKCE spec)
+* Implements `verifyCodeChallenge` to check if the code verifier matches the challenge (both S256 and plain methods)
+* Exports the function for use in other parts of your app
+
+---
+
+
+
+->->-> now, **the next step: the Token Service!**
+
+
+### What it does:
+
+* Imports the `jsonwebtoken` library and your config
+* Provides functions to:
+  * Generate access tokens (`generateAccessToken`)
+  * Generate ID tokens (`generateIdToken`)
+  * Verify tokens (`verifyToken`)
+* Exports all three functions for use in your controllers
+
+---
+
+->->->
+
+## Next Step: Build the Controllers
+
+### 1. Create `src/controllers/authController.js`
+
+This will handle login, consent, and authorization code logic.
+
+### 2. Create `src/controllers/tokenController.js`
+
+This will handle exchanging the authorization code for tokens.
+
+---
+
+->->-> Now let’s set up the **routes** and  **views** .
+
+---
+
+->->-> Now, let's setup `authorization-server/server.js`
+
+---
