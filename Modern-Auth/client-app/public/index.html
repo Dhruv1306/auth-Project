@@ -13,9 +13,19 @@
         <button onclick="login()">Login with OAuth</button>  <!-- This login button works with the Authorization server. -->
     </div>
 
+
+    <div id="session-message" style="color: red; font-weight: bold;"></div>
+
     <!-- Load scripts in order (dependencies first) -->
     <script src="/src/js/pkce.js"></script>
     <script src="/src/js/storage.js"></script>
     <script src="/src/js/auth.js"></script>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+if (params.get('reason') === 'expired') {
+    document.getElementById('session-message').textContent =
+        'Your session has expired. Please log in again.';
+}
+    </script>
 </body>
 </html>

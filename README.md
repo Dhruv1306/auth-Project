@@ -1,3 +1,4 @@
+
 ![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)
 
 - This project is licensed under the GNU GPL v3. Forks are welcome, but attribution is required and derivative works must remain open-source.
@@ -8,7 +9,7 @@ npm i express express-session nodemon jsonwebtoken uuid cors mysql2 dotenv
 
 //  uuid  --  Generates `**Universally Unique Identifiers`** - random strings guaranteed to be unique.
 
-// cors  --  Handles **Cross-Origin Resource Sharing** - allows/blocks requests from different domains.
+// cors  --  Handles **Cross-Origin Resource Sharing** - allows/blocks requests from different domains.   ( we gonna need it in both "authorization-server" & "resource-server")  ( because our resource server (on port 3002) also needs to allow cross-origin requests from our client app (`localhost:3000`).)
 
 #### Approach
 
@@ -217,7 +218,6 @@ authorization-server/
         ├── login.html             ⏳ Coming soon
         └── consent.html           ⏳ Coming soon
 
-
 ---
 
 authorization-server / database.js :
@@ -231,8 +231,6 @@ authorization-server / database.js :
 
 ---
 
-
-
 -> ->-> Let’s move on to the next core part:  **PKCE validation** .
 
 ### What it does:
@@ -244,10 +242,7 @@ authorization-server / database.js :
 
 ---
 
-
-
 ->->-> now, **the next step: the Token Service!**
-
 
 ### What it does:
 
@@ -281,3 +276,131 @@ This will handle exchanging the authorization code for tokens.
 ->->-> Now, let's setup `authorization-server/server.js`
 
 ---
+
+---
+
+
+
+## Next step: let's start building our "resource-server" (the protected API)
+
+Let's start with installing dependencies & create our ".env" file.
+
+->->-> npm install express jsonwebtoken dotenv
+
+& then let's startt with our " `src/middleware/tokenMiddleware.js "`
+
+---
+
+then we will do  `src/config/index.js  &   src/controllers/userController.js  & src/routes/apiRoutes.js`
+
+then we will create a "server.js" for our "resource-server".
+
+& then let's start our "resource-server" with:
+->->->   `npm start`
+
+---
+
+
+
+
+
+## we don't need Session here.
+
+
+
+Great to hear it’s working!
+
+### Does the access token have an expiry time?
+
+**Yes!**
+Your access token is a JWT (JSON Web Token) and its expiry is set when you generate it in your authorization server.
+
+#### Where is the expiry set?
+
+In your `tokenService.js` (or similar), you likely have:
+
+```javascript
+jwt.sign(payload, config.jwt.secret, { expiresIn: config.jwt.accessTokenExpiry });
+```
+
+And in your config:
+
+```javascript
+accessTokenExpiry: '1h' // or '3600s', etc.
+```
+
+This means the token is only valid for 1 hour after it is issued.
+
+---
+
+### Do you need to add a session?
+
+**No, you do not need to add a session on the resource server or client app.**
+
+- The access token itself is the “session” — it’s stateless and self-contained.
+- The resource server just checks if the token is valid and not expired.
+
+---
+
+### What happens when the token expires?
+
+- The user will need to log in again (or, in a full OAuth flow, use a refresh token to get a new access token).
+- If you want to implement refresh tokens, that’s a more advanced step.
+
+---
+
+### Summary Table
+
+| Feature         | Handled by JWT? | Do you need to add? |
+| --------------- | --------------- | ------------------- |
+| Expiry time     | ✅ Yes          | ❌ No               |
+| Session storage | ❌ Not needed   | ❌ No               |
+| Stateless auth  | ✅ Yes          | —                  |
+
+---
+
+**If you want to see or change the expiry, look for `expiresIn` in your token generation code!**
+
+---
+
+---
+
+---
+
+
+
+### JWT Tokken
+
+## Access Token Expiry (`accessTokenExpiry`)
+
+- **What it is:**The lifetime of the access token (used to access APIs/resources).
+- **Who uses it:**The resource server (API) checks if the access token is valid and not expired.
+- **Typical value:**Short-lived (e.g., 5 minutes to 1 hour).
+- **Purpose:**
+  Limits how long a stolen token can be used.
+
+---
+
+## ID Token Expiry (`idTokenExpiry`)
+
+- **What it is:**The lifetime of the ID token (used for authentication, contains user info).
+- **Who uses it:**The client app (frontend) to verify the user’s identity.
+- **Typical value:**Often the same as or slightly longer than the access token, but can be different.
+- **Purpose:**
+  Tells the client app how long the user’s identity assertion is valid.
+
+---
+
+## Table Summary
+
+| Token Type   | Used For       | Checked By      | Typical Expiry | Contains User Info?  |
+| ------------ | -------------- | --------------- | -------------- | -------------------- |
+| Access Token | API access     | Resource server | 5m–1h         | Sometimes            |
+| ID Token     | Authentication | Client app      | 5m–1h         | Yes (profile, email) |
+
+---
+
+**You can set them to different values if you want!**
+For example, you might want a short-lived access token but a longer-lived ID token for SSO.
+
+Let me know if you want to see or change how they’re used in your code!

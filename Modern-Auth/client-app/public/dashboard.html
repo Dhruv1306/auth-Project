@@ -11,10 +11,10 @@
         <h1>Dashboard</h1>
         <p>Welcome! You are logged in.</p>
         
-        <div id="user-info">
+        <!-- <div id="user-info">
             <h3>Your Access Token:</h3>
             <pre id="token-display"></pre>
-        </div>
+        </div> -->
 
         <button onclick="fetchProtectedData()">Fetch Protected Data</button>
         <div id="api-response"></div>
@@ -35,6 +35,19 @@
         } else {
             document.getElementById('token-display').textContent = token;
         }
+
+
+        function isTokenExpired(token) {
+    if (!token) return true;
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    const now = Math.floor(Date.now() / 1000);
+    return payload.exp < now;
+}
+
+const idToken = sessionStorage.getItem('id_token');
+if (!idToken || isTokenExpired(idToken)) {
+    window.location.href = '/?reason=expired';
+}
     </script>
 </body>
 </html>
