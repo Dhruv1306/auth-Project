@@ -1,406 +1,53 @@
+# Auth Project
 
-![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)
+This project demonstrates a complete OAuth 2.0 authentication flow using three main components: an Authorization Server, a Client Application, and a Resource Server.
 
-- This project is licensed under the GNU GPL v3. Forks are welcome, but attribution is required and derivative works must remain open-source.
+It is designed to showcase secure user authentication, token management, and protected resource access using modern best practices like PKCE and consent screens. The Authorization Server handles user login and token issuance, the Client App initiates authentication and displays user dashboards, and the Resource Server provides protected APIs accessible only with valid tokens.
 
-#### cmds
+## How to Run the Project
 
-npm i express express-session nodemon jsonwebtoken uuid cors mysql2 dotenv
+1. **Install Dependencies**
 
-//  uuid  --  Generates `**Universally Unique Identifiers`** - random strings guaranteed to be unique.
+   - Navigate to each subfolder (`authorization-server`, `client-app`, `resource-server`) and run:
+     ```
+     npm install
+     ```
+2. **Start Servers**
 
-// cors  --  Handles **Cross-Origin Resource Sharing** - allows/blocks requests from different domains.   ( we gonna need it in both "authorization-server" & "resource-server")  ( because our resource server (on port 3002) also needs to allow cross-origin requests from our client app (`localhost:3000`).)
+   - In each subfolder, start the server:
+     ```
+     npm start
+     ```
+   - Or, if `npm start` is not defined, use:
+     ```
+     node server.js
+     ```
+3. **Access the Client App**
 
-#### Approach
+   - Open your browser and go to the client app’s URL (usually `http://localhost:3000` or as specified in the client-app/server.js).
+4. **Test Authentication Flow**
 
-First let's just make a normal Auth with our current knowledge inside the folder "Basic Auth".
+   - Use the client app to log in, grant consent, and access protected resources via the resource server.
 
-Now, let's create with OAuth2.0 + PKCE + OIDC.
+## Server Port Numbers
 
-┌─────────────────────────────────────────────────────────────┐
-│                    OUR OAUTH SYSTEM                                                                                                   │
-├─────────────────────────────────────────────────────────────┤
-│                                                                                                                                                            │
-│   Client App (:3000)  ──CORS──►  Auth Server (:4000)                                                                 │
-│         │                                                               │                                                                                │
-│         │                                                               │ uuid generates                                                       │
-│         │                                                               │ auth codes                                                             │
-│         │                                                              ▼                                                                               │
-│         │                                                     "abc-123-def"                                                                      │
-│         │◄───────────────────────┘                                                                                │
-│         │                  (redirect with code)                                                                                                │
-│         │                                                                                                                                                │
-│         └──────CORS──────►  Resource Server (:5000)                                                          │
-│                                                                                                                                                            │
-└─────────────────────────────────────────────────────────────┘
+- **authorization-server**: Default port is `3010`
+- **client-app**: Default port is `3000`
+- **resource-server**: Default port is `3002`
 
----
+## Predefined Users
 
-## Overview
+The project comes with two predefined users for testing:
 
-We're building 3 components:
+| ID | Email            | Password | Name       |
+| -- | ---------------- | -------- | ---------- |
+| 1  | john@example.com | 123      | John Doe   |
+| 2  | jane@example.com | 234      | Jane Smith |
 
-1. **Authorization Server** (Port 3001) - Handles login, consent, and issues tokens
-2. **Client App** (Port 3000) - The frontend application users interact with
-3. **Resource Server** (Port 3002) - Protected API that requires valid tokens\
+You can use these credentials to log in and test the authentication flow.
 
-------------------First, let's create the Client App------------------------------------
+## Project Structure
 
-->->->-> Firstly, create the "client-app" folder structure.
-
-->->->-> After, that create the pkce.js & storage.js.
-
-## Understanding & Implementing PKCE
-
-### What is PKCE?
-
-PKCE prevents authorization code interception attacks. Here's how it works:
-
-1. **Code Verifier** — A random string (43-128 characters) generated by the client
-2. **Code Challenge** — A SHA-256 hash of the verifier, base64url encoded
-3. The client sends the **challenge** when requesting authorization
-4. The client sends the **verifier** when exchanging the code for tokens
-5. The server hashes the verifier and compares it to the stored challenge
-
-If someone intercepts the authorization code, they can't use it without the original verifier!
-
-->->->-> Now, build the login flow, "auth.js"
-
-## Understand the flow :
-
-1. User clicks "Login"
-   ↓
-2. login() generates PKCE verifier + challenge
-   ↓
-3. Stores verifier in sessionStorage
-   ↓
-4. Redirects to Authorization Server with challenge
-   ↓
-5. User logs in & consents
-   ↓
-6. Auth Server redirects back with code
-   ↓
-7. handleCallback() exchanges code + verifier for tokens
-   ↓
-8. Tokens stored, user is logged in!
-
-->->->-> Now, Let's create the HTML Pages
-
-1. index.html
-2. callback.html
-3. dashboard.html
-
-->->->Also, we need to create the "api.js" file. This will sends the token with each request  ( when you request for some data from the resource's server ),  to prove you're logged in.
-
-->->->-> Now, let's create "server.js" file. This is the last step for the Client App.
-
-**--------------------------Client App is complete! ✅---------------------------------**
-
-------Now, let's **build the Authorization Server (the brain of OAuth)------**
-
-->->->-> Firstly let's create the "folder-structure" for "authorization-server".
-
-->->->-> Also, as we are gonna use MySQL for our Database, So, let's create a db in the MySQL.
-
-`
-
--- Create database
-CREATE DATABASE oauth_db;
-
-USE oauth_db;
-
--- Users table
-CREATE TABLE users (
-    id VARCHAR(50) PRIMARY KEY,
-    email VARCHAR(100) UNIQUE NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    name VARCHAR(100) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
--- OAuth Clients table
-CREATE TABLE clients (
-    client_id VARCHAR(100) PRIMARY KEY,
-    client_name VARCHAR(100) NOT NULL,
-    redirect_uris TEXT NOT NULL,
-    allowed_scopes TEXT NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
--- Authorization Codes table
-CREATE TABLE authorization_codes (
-    code VARCHAR(255) PRIMARY KEY,
-    client_id VARCHAR(100) NOT NULL,
-    user_id VARCHAR(50) NOT NULL,
-    redirect_uri VARCHAR(255) NOT NULL,
-    scope VARCHAR(255),
-    code_challenge VARCHAR(255),
-    code_challenge_method VARCHAR(10),
-    expires_at TIMESTAMP NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
--- Insert sample users
-INSERT INTO users (id, email, password, name) VALUES
-('user-1', 'john@example.com', 'password123', 'John Doe'),
-('user-2', 'jane@example.com', 'password456', 'Jane Smith');
-
--- Insert sample client
-INSERT INTO clients (client_id, client_name, redirect_uris, allowed_scopes) VALUES
-('my-client-app', 'My OAuth Client', 'http://localhost:3000/callback.html', 'openid,profile,email');
-
-`
-
-NOTE : In our database, I had used "VARCHAR" for "id" instead of "INT".
-
-    - if we did " id INT PRIMARY KEY AUTO_INCREMENT ", we have thses things :
-
-| Pros                         | Cons                                        |
-| ---------------------------- | ------------------------------------------- |
-| ✅ Smaller storage (4 bytes) | ❌ Sequential = predictable (security risk) |
-| ✅ Faster comparisons        | ❌ Exposes how many users you have          |
-| ✅ Simpler                   | ❌ Problems when merging databases          |
-
-    - But we did, " id VARCHAR(50) PRIMARY KEY, ", now we get :
-
-| Pros                                | Cons                           |
-| ----------------------------------- | ------------------------------ |
-| ✅ Random = unpredictable (secure)  | ❌ Larger storage (36+ bytes)  |
-| ✅ Can generate ID before inserting | ❌ Slightly slower comparisons |
-| ✅ Works across distributed systems | ❌ Harder to read              |
-
-So, why we choosed VARCHAR ?
-
-    - Cause for OAuth / security systems, we use UUIDs because then it's become kind off impossible to guess user IDs  & no risk of info leak. And therefore we use VARCHAR cause we can add both alphanumeric values in it.
-
-->->->-> Now, what we need to do next :
-
-| #  | File                                   | Status    | Purpose                  |
-| -- | -------------------------------------- | --------- | ------------------------ |
-| 1  | `src/config/index.js`                | Need code | JWT & server settings    |
-| 2  | `src/config/database.js`             | Need code | MySQL connection         |
-| 3  | `src/services/pkceService.js`        | Need code | Verify PKCE challenge    |
-| 4  | `src/services/tokenService.js`       | Need code | Generate JWT tokens      |
-| 5  | `src/controllers/authController.js`  | Need code | Handle login & consent   |
-| 6  | `src/controllers/tokenController.js` | Need code | Exchange code for tokens |
-| 7  | `src/middleware/authMiddleware.js`   | Need code | Validate requests        |
-| 8  | `src/routes/oauthRoutes.js`          | Need code | Define endpoints         |
-| 9  | `src/views/login.html`               | Need code | Login form               |
-| 10 | `src/views/consent.html`             | Need code | Consent screen           |
-| 11 | `server.js`                          | Need code | Main entry point         |
-
-->->->-> Let's create, `src/config/index.js` & `src/config/database.js`
-
-->->->->  Our current progess :
-
-authorization-server/
-├── .env                 ✅ Create this (Step 3)
-├── .gitignore           ✅ Create this (Step 2)
-├── package.json         ✅ Update this (Step 1)
-├── package-lock.json    ✅ Auto-generated after npm install
-├── node_modules/        ✅ Auto-generated after npm install
-├── server.js            ⏳ Next
-└── src/
-    ├── config/
-    │   ├── index.js     ✅ Create this (Step 4)
-    │   └── database.js  ✅ Create this (Step 5)
-    ├── controllers/
-    │   ├── authController.js      ⏳ Coming soon
-    │   └── tokenController.js     ⏳ Coming soon
-    ├── middleware/
-    │   └── authMiddleware.js      ⏳ Coming soon
-    ├── routes/
-    │   └── oauthRoutes.js         ⏳ Coming soon
-    ├── services/
-    │   ├── pkceService.js         ⏳ Coming soon
-    │   └── tokenService.js        ⏳ Coming soon
-    └── views/
-        ├── login.html             ⏳ Coming soon
-        └── consent.html           ⏳ Coming soon
-
----
-
-authorization-server / database.js :
-
-### What it does:
-
-* Imports the MySQL library (with promise support)
-* Loads your config (which reads from `.env`)
-* Creates a connection pool (best practice for web apps)
-* Exports the pool so other files can use it
-
----
-
--> ->-> Let’s move on to the next core part:  **PKCE validation** .
-
-### What it does:
-
-* Imports Node’s `crypto` module for hashing
-* Implements `base64UrlEncode` for URL-safe encoding (required by PKCE spec)
-* Implements `verifyCodeChallenge` to check if the code verifier matches the challenge (both S256 and plain methods)
-* Exports the function for use in other parts of your app
-
----
-
-->->-> now, **the next step: the Token Service!**
-
-### What it does:
-
-* Imports the `jsonwebtoken` library and your config
-* Provides functions to:
-  * Generate access tokens (`generateAccessToken`)
-  * Generate ID tokens (`generateIdToken`)
-  * Verify tokens (`verifyToken`)
-* Exports all three functions for use in your controllers
-
----
-
-->->->
-
-## Next Step: Build the Controllers
-
-### 1. Create `src/controllers/authController.js`
-
-This will handle login, consent, and authorization code logic.
-
-### 2. Create `src/controllers/tokenController.js`
-
-This will handle exchanging the authorization code for tokens.
-
----
-
-->->-> Now let’s set up the **routes** and  **views** .
-
----
-
-->->-> Now, let's setup `authorization-server/server.js`
-
----
-
----
-
-
-
-## Next step: let's start building our "resource-server" (the protected API)
-
-Let's start with installing dependencies & create our ".env" file.
-
-->->-> npm install express jsonwebtoken dotenv
-
-& then let's startt with our " `src/middleware/tokenMiddleware.js "`
-
----
-
-then we will do  `src/config/index.js  &   src/controllers/userController.js  & src/routes/apiRoutes.js`
-
-then we will create a "server.js" for our "resource-server".
-
-& then let's start our "resource-server" with:
-->->->   `npm start`
-
----
-
-
-
-
-
-## we don't need Session here.
-
-
-
-Great to hear it’s working!
-
-### Does the access token have an expiry time?
-
-**Yes!**
-Your access token is a JWT (JSON Web Token) and its expiry is set when you generate it in your authorization server.
-
-#### Where is the expiry set?
-
-In your `tokenService.js` (or similar), you likely have:
-
-```javascript
-jwt.sign(payload, config.jwt.secret, { expiresIn: config.jwt.accessTokenExpiry });
-```
-
-And in your config:
-
-```javascript
-accessTokenExpiry: '1h' // or '3600s', etc.
-```
-
-This means the token is only valid for 1 hour after it is issued.
-
----
-
-### Do you need to add a session?
-
-**No, you do not need to add a session on the resource server or client app.**
-
-- The access token itself is the “session” — it’s stateless and self-contained.
-- The resource server just checks if the token is valid and not expired.
-
----
-
-### What happens when the token expires?
-
-- The user will need to log in again (or, in a full OAuth flow, use a refresh token to get a new access token).
-- If you want to implement refresh tokens, that’s a more advanced step.
-
----
-
-### Summary Table
-
-| Feature         | Handled by JWT? | Do you need to add? |
-| --------------- | --------------- | ------------------- |
-| Expiry time     | ✅ Yes          | ❌ No               |
-| Session storage | ❌ Not needed   | ❌ No               |
-| Stateless auth  | ✅ Yes          | —                  |
-
----
-
-**If you want to see or change the expiry, look for `expiresIn` in your token generation code!**
-
----
-
----
-
----
-
-
-
-### JWT Tokken
-
-## Access Token Expiry (`accessTokenExpiry`)
-
-- **What it is:**The lifetime of the access token (used to access APIs/resources).
-- **Who uses it:**The resource server (API) checks if the access token is valid and not expired.
-- **Typical value:**Short-lived (e.g., 5 minutes to 1 hour).
-- **Purpose:**
-  Limits how long a stolen token can be used.
-
----
-
-## ID Token Expiry (`idTokenExpiry`)
-
-- **What it is:**The lifetime of the ID token (used for authentication, contains user info).
-- **Who uses it:**The client app (frontend) to verify the user’s identity.
-- **Typical value:**Often the same as or slightly longer than the access token, but can be different.
-- **Purpose:**
-  Tells the client app how long the user’s identity assertion is valid.
-
----
-
-## Table Summary
-
-| Token Type   | Used For       | Checked By      | Typical Expiry | Contains User Info?  |
-| ------------ | -------------- | --------------- | -------------- | -------------------- |
-| Access Token | API access     | Resource server | 5m–1h         | Sometimes            |
-| ID Token     | Authentication | Client app      | 5m–1h         | Yes (profile, email) |
-
----
-
-**You can set them to different values if you want!**
-For example, you might want a short-lived access token but a longer-lived ID token for SSO.
-
-Let me know if you want to see or change how they’re used in your code!
+- `authorization-server`: Handles user authentication, consent, and token issuance.
+- `client-app`: Initiates OAuth flow, displays login and dashboard pages.
+- `resource-server`: Provides protected APIs, validates access tokens.
