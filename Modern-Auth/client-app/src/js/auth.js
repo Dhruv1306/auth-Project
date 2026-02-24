@@ -73,10 +73,11 @@ async function handleCallback() {
   return { success: false, error: data.error };
 }
 
-// Logout
+// Logout — clears all tokens and replaces history to prevent back-button bypass
 function logout() {
   clearTokens();
-  window.location.href = "/";
+  // Use replace() instead of href to remove dashboard from browser history
+  window.location.replace("/");
 }
 
 /*

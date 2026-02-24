@@ -176,6 +176,7 @@
           About
         </a>
         <a
+          id="nav-auth-btn"
           href="#login"
           class="navbar-login"
           onclick="
@@ -240,54 +241,100 @@
       </section>
       <section class="docs tab-section" id="docs-section">
         <h2>Documentation</h2>
-        <p>This project runs three main servers:</p>
-        <ul style="text-align: left; margin: 0 auto; max-width: 600px">
-          <li>
-            <b>Authorization Server:</b> <code>localhost:3000</code> (default
-            port)
-          </li>
-          <li><b>Client App:</b> <code>localhost:3001</code> (default port)</li>
-          <li>
-            <b>Resource Server:</b> <code>localhost:3002</code> (default port)
-          </li>
-        </ul>
-        <p>
-          Each server is modular and can be run independently. For more
-          information about PKCE and OAuth 2.0, see below:
-        </p>
-        <p>
-          Read the
-          <a href="https://oauth.net/2/pkce/" target="_blank"
-            >OAuth 2.0 PKCE documentation</a
-          >
-          to learn more about the protocol and its benefits.
-        </p>
+        <p class="docs-subtitle">Understand the architecture powering Modern Auth</p>
+
+        <!-- Architecture Cards -->
+        <div class="docs-architecture">
+          <div class="docs-server-card">
+            <div class="docs-server-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 2L3 7V12C3 17.55 6.84 22.74 12 24C17.16 22.74 21 17.55 21 12V7L12 2Z" stroke="#ff8c3b" stroke-width="2" fill="none"/><path d="M9 12L11 14L15 10" stroke="#ff8c3b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <h3>Authorization Server</h3>
+            <code class="docs-port">localhost:3010</code>
+            <p>Handles user login, registration, consent, and issues JWT tokens via OAuth 2.0 + PKCE flow.</p>
+          </div>
+          <div class="docs-server-card">
+            <div class="docs-server-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><rect x="2" y="3" width="20" height="14" rx="3" stroke="#ff8c3b" stroke-width="2" fill="none"/><path d="M8 21H16" stroke="#ff8c3b" stroke-width="2" stroke-linecap="round"/><path d="M12 17V21" stroke="#ff8c3b" stroke-width="2" stroke-linecap="round"/></svg>
+            </div>
+            <h3>Client App</h3>
+            <code class="docs-port">localhost:3000</code>
+            <p>The frontend SPA that users interact with. Initiates the PKCE flow and stores tokens securely.</p>
+          </div>
+          <div class="docs-server-card">
+            <div class="docs-server-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="8" rx="2" stroke="#ff8c3b" stroke-width="2" fill="none"/><rect x="2" y="14" width="20" height="8" rx="2" stroke="#ff8c3b" stroke-width="2" fill="none"/><circle cx="6" cy="6" r="1" fill="#ff8c3b"/><circle cx="6" cy="18" r="1" fill="#ff8c3b"/></svg>
+            </div>
+            <h3>Resource Server</h3>
+            <code class="docs-port">localhost:3002</code>
+            <p>Serves protected API endpoints. Validates JWT tokens before returning user data.</p>
+          </div>
+        </div>
+
+        <!-- OAuth Flow Diagram -->
+        <div class="docs-flow-card">
+          <h3>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="vertical-align: middle; margin-right: 8px"><path d="M4 4V9H9" stroke="#ff8c3b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M20 20V15H15" stroke="#ff8c3b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M20.49 9A9 9 0 005.64 5.64L4 4M3.51 15A9 9 0 0018.36 18.36L20 20" stroke="#ff8c3b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            OAuth 2.0 + PKCE Flow
+          </h3>
+          <div class="docs-flow-steps">
+            <div class="docs-flow-step"><span class="flow-num">1</span><span>User clicks <b>Login</b> on Client App</span></div>
+            <div class="docs-flow-arrow">→</div>
+            <div class="docs-flow-step"><span class="flow-num">2</span><span>Client generates <b>PKCE codes</b> & redirects to Auth Server</span></div>
+            <div class="docs-flow-arrow">→</div>
+            <div class="docs-flow-step"><span class="flow-num">3</span><span>User authenticates & gives <b>consent</b></span></div>
+            <div class="docs-flow-arrow">→</div>
+            <div class="docs-flow-step"><span class="flow-num">4</span><span>Auth Server returns <b>authorization code</b></span></div>
+            <div class="docs-flow-arrow">→</div>
+            <div class="docs-flow-step"><span class="flow-num">5</span><span>Client exchanges code + verifier for <b>JWT tokens</b></span></div>
+            <div class="docs-flow-arrow">→</div>
+            <div class="docs-flow-step"><span class="flow-num">6</span><span>Tokens used to access <b>protected resources</b></span></div>
+          </div>
+        </div>
+
+        <a href="https://oauth.net/2/pkce/" target="_blank" class="docs-ext-link">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="vertical-align: middle; margin-right: 8px"><path d="M18 13V19A2 2 0 0116 21H5A2 2 0 013 19V8A2 2 0 015 6H11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><polyline points="15,3 21,3 21,9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="10" y1="14" x2="21" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          Read the Official OAuth 2.0 PKCE Documentation
+        </a>
       </section>
+
       <section class="about tab-section" id="about-section">
         <h2>About This Project</h2>
-        <p>
-          This demo showcases a modern authentication flow using OAuth 2.0 and
-          PKCE, suitable for SPAs, mobile, and public clients. Built for
-          learning and rapid prototyping.
+        <p class="about-subtitle">
+          A modern authentication demo built for learning, experimenting, and understanding OAuth 2.0 + PKCE from the ground up.
         </p>
-        <p>
-          Features include modular code, easy integration, and robust security.
-          The project is open source and welcomes contributions. For feedback or
-          collaboration, contact the author or visit the GitHub repository.
-        </p>
-        <p>
-          Future enhancements may include social login, advanced analytics, and
-          customizable UI themes.
-        </p>
+
+        <div class="about-highlights">
+          <div class="about-card">
+            <span class="about-card-icon">🌐</span>
+            <h3>Open Source</h3>
+            <p>Modular codebase designed for exploration. Fork it, break it, learn from it.</p>
+          </div>
+          <div class="about-card">
+            <span class="about-card-icon">📚</span>
+            <h3>Learning First</h3>
+            <p>Every file is documented with clear comments explaining the why behind each step.</p>
+          </div>
+          <div class="about-card">
+            <span class="about-card-icon">🚀</span>
+            <h3>Future Ready</h3>
+            <p>Planned: Google Sign-In, social login, analytics dashboards, and customizable themes.</p>
+          </div>
+        </div>
+
+        <div class="about-cta">
+          <!-- <p>Built with ❤️ by <strong>Dhruv Singh Dalal</strong></p> -->
+          <a href="https://github.com/Dhruv1306/auth-Project" target="_blank" class="about-github-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="vertical-align: middle; margin-right: 8px"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+            View on GitHub
+          </a>
+        </div>
       </section>
     </main>
     <footer class="footer">
       <div class="footer-content">
-        <span>&copy; 2026 Modern Auth Project</span>
-        <span
-          >Made with <span style="color: #ff4e50">&#10084;</span> for
-          developers</span
-        >
+        <span>&copy; 2026 Modern Auth</span>
+        <p>Built with ❤️ by <strong>Dhruv Singh Dalal</strong></p>
       </div>
     </footer>
     <!-- Load scripts in order (dependencies first) -->
@@ -338,6 +385,41 @@
         document.getElementById("session-message").textContent =
           "Your session has expired. Please log in again.";
       }
+
+      // === DYNAMIC NAVBAR: Swap Login → Profile if user is logged in ===
+      (function updateNavForLoggedInUser() {
+        const accessToken = sessionStorage.getItem('access_token');
+        const idToken = sessionStorage.getItem('id_token');
+
+        if (!accessToken || !idToken) return; // Not logged in, keep Login button
+
+        // Check token expiry
+        try {
+          const payload = JSON.parse(atob(accessToken.split('.')[1]));
+          if (payload.exp < Math.floor(Date.now() / 1000)) return; // Expired
+        } catch (e) { return; }
+
+        // User is logged in — swap the Login button with Profile
+        const authBtn = document.getElementById('nav-auth-btn');
+        if (authBtn) {
+          authBtn.href = '/dashboard.html';
+          authBtn.className = 'navbar-login';
+          authBtn.onclick = null;
+          authBtn.innerHTML = `
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle; margin-right: 6px">
+              <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2"/>
+              <path d="M4 20C4 16.69 7.58 14 12 14C16.42 14 20 16.69 20 20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            Profile`;
+        }
+
+        // Also update the hero button
+        const heroBtn = document.querySelector('.hero-btn');
+        if (heroBtn) {
+          heroBtn.textContent = '🚀 View Your Dashboard';
+          heroBtn.onclick = function() { window.location.href = '/dashboard.html'; return false; };
+        }
+      })();
     </script>
   </body>
 </html>

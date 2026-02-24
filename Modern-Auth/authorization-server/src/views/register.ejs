@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login — Modern Auth</title>
+    <title>Sign Up — Modern Auth</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap"
       rel="stylesheet"
@@ -22,9 +22,9 @@
         <div class="login-logo">
           <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect width="48" height="48" rx="14" fill="url(#logo-grad)" />
-            <path d="M16 34V20H32V34" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M24 34V26" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M8 22L24 10L40 22" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M24 14C21.24 14 19 16.24 19 19C19 21.76 21.24 24 24 24C26.76 24 29 21.76 29 19C29 16.24 26.76 14 24 14Z" stroke="#fff" stroke-width="2" fill="none"/>
+            <path d="M15 34C15 29.58 18.58 26 24 26C29.42 26 33 29.58 33 34" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/>
+            <path d="M30 16L34 16M32 14L32 18" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
             <defs>
               <linearGradient id="logo-grad" x1="0" y1="0" x2="48" y2="48">
                 <stop stop-color="#ff8c3b"/>
@@ -33,32 +33,31 @@
             </defs>
           </svg>
         </div>
-        <h2 class="login-title">Welcome Back</h2>
-        <p class="login-subtitle">Sign in to continue to Modern Auth</p>
+        <h2 class="login-title">Create Account</h2>
+        <p class="login-subtitle">Sign up to get started with Modern Auth</p>
 
         <% if (typeof error !== 'undefined' && error) { %>
           <div class="form-error"><%= error %></div>
         <% } %>
 
-        <script>
-          // Show success message if redirected from registration
-          if (new URLSearchParams(window.location.search).get('registered') === 'true') {
-            document.addEventListener('DOMContentLoaded', function() {
-              const msg = document.createElement('div');
-              msg.className = 'form-success';
-              msg.textContent = 'Account created successfully! Please sign in.';
-              document.querySelector('.login-form').before(msg);
-            });
-          }
-        </script>
-
-        <form method="POST" action="/login" class="login-form">
+        <form method="POST" action="/register" class="login-form">
           <input type="hidden" name="client_id" value="<%= client_id %>" />
           <input type="hidden" name="redirect_uri" value="<%= redirect_uri %>" />
           <input type="hidden" name="scope" value="<%= scope %>" />
           <input type="hidden" name="code_challenge" value="<%= code_challenge %>" />
           <input type="hidden" name="code_challenge_method" value="<%= code_challenge_method %>" />
 
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              placeholder="John Doe"
+              required
+              autocomplete="name"
+            />
+          </div>
           <div class="form-group">
             <label for="email">Email</label>
             <input
@@ -76,18 +75,31 @@
               type="password"
               id="password"
               name="password"
-              placeholder="Enter your password"
+              placeholder="Create a strong password"
               required
-              autocomplete="current-password"
+              minlength="6"
+              autocomplete="new-password"
             />
           </div>
-          <button type="submit" class="login-btn">Login</button>
+          <div class="form-group">
+            <label for="confirm_password">Confirm Password</label>
+            <input
+              type="password"
+              id="confirm_password"
+              name="confirm_password"
+              placeholder="Confirm your password"
+              required
+              minlength="6"
+              autocomplete="new-password"
+            />
+          </div>
+          <button type="submit" class="login-btn">Create Account</button>
         </form>
 
         <p class="login-switch-text">
-          Don't have an account?
-          <a href="/register?client_id=<%= client_id %>&redirect_uri=<%= encodeURIComponent(redirect_uri) %>&scope=<%= encodeURIComponent(scope) %>&code_challenge=<%= code_challenge %>&code_challenge_method=<%= code_challenge_method %>" class="login-switch-link">
-            Sign up
+          Already have an account?
+          <a href="/authorize?client_id=<%= client_id %>&redirect_uri=<%= encodeURIComponent(redirect_uri) %>&scope=<%= encodeURIComponent(scope) %>&code_challenge=<%= code_challenge %>&code_challenge_method=<%= code_challenge_method %>" class="login-switch-link">
+            Sign in
           </a>
         </p>
 
