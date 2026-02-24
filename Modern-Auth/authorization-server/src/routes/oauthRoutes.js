@@ -88,7 +88,7 @@ router.delete('/api/delete-account', async (req, res) => {
         }
         const user = users[0];
 
-        // Step 2: Archive user into deleted_users table (kept for 14 days)
+        // Step 2: Archive user into deleted_users table (kept for 2 days)
         await db.query(
             "INSERT INTO deleted_users (id, email, password, name, original_created_at) VALUES (?, ?, ?, ?, ?)",
             [user.id, user.email, user.password, user.name, user.created_at]
@@ -100,8 +100,8 @@ router.delete('/api/delete-account', async (req, res) => {
         // Step 4: Delete user from main users table
         await db.query("DELETE FROM users WHERE id = ?", [userId]);
 
-        // Step 5: Auto-purge deleted_users older than 14 days
-        await db.query("DELETE FROM deleted_users WHERE deleted_at < NOW() - INTERVAL 14 DAY");
+        // Step 5: Auto-purge deleted_users older than 2 days
+        await db.query("DELETE FROM deleted_users WHERE deleted_at < NOW() - INTERVAL 2 DAY");
 
         res.status(200).json({ message: 'Account deleted successfully' });
     } catch (err) {

@@ -6,9 +6,11 @@ const config = require('./index');   // Looks for "index.js" file in the same fo
 // Now, create a connection pool
 const pool = mysql.createPool({
     host: config.database.host,
+    port: config.database.port,
     user: config.database.user,
     password: config.database.password,
     database: config.database.database,
+    ssl: config.database.ssl ? { rejectUnauthorized: false } : null,
     waitForConnections: true,
     connectionLimit: 10
 });

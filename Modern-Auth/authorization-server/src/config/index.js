@@ -12,9 +12,11 @@ module.exports = {
 
   database: {
     host: process.env.DB_HOST,
+    port: process.env.DB_PORT || 3306,
     user: process.env.DB_USER,    // MySQL username
     password: process.env.DB_PASSWORD, // MySQL password
     database: process.env.DB_NAME,
+    ssl: process.env.DB_SSL === 'true'
   },
 
   google: {
