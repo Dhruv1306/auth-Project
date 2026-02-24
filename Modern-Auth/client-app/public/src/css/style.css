@@ -171,7 +171,7 @@ body {
 .main-content {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 85px 32px 64px 32px;
+  padding: 86px 32px 64px 32px;
   flex: 1;
   width: 100%;
   position: relative;
@@ -316,7 +316,7 @@ body {
 .features {
   margin: 0px auto 0 auto;
   max-width: 1000px;
-  padding: 48px 24px 48px 24px;
+  padding: 10px 24px 48px 24px;
   text-align: center;
   border-radius: 24px;
 }
@@ -477,7 +477,7 @@ body {
 .docs {
   margin: 0px auto 0 auto;
   max-width: 1000px;
-  padding: 48px 24px 32px 24px;
+  padding: 10px 24px 32px 24px;
   text-align: center;
   border-radius: 24px;
 }
@@ -680,7 +680,7 @@ body {
 .about {
   margin: 0px auto 0 auto;
   max-width: 1000px;
-  padding: 48px 24px 48px 24px;
+  padding: 10px 24px 48px 24px;
   text-align: center;
   border-radius: 24px;
 }
