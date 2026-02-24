@@ -75,9 +75,20 @@ async function handleCallback() {
 
 // Logout — clears all tokens and replaces history to prevent back-button bypass
 function logout() {
+  // Save user's name before clearing tokens (for the logout toast)
+  let firstName = 'User';
+  try {
+    const idToken = sessionStorage.getItem('id_token');
+    if (idToken) {
+      const payload = JSON.parse(atob(idToken.split('.')[1]));
+      const name = payload.name || payload.email || 'User';
+      firstName = name.split(' ')[0];
+    }
+  } catch(e) {}
+
   clearTokens();
   // Use replace() instead of href to remove dashboard from browser history
-  window.location.replace("/");
+  window.location.replace('/?logged_out=true&name=' + encodeURIComponent(firstName));
 }
 
 /*

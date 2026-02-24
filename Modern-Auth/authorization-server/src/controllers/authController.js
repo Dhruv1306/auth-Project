@@ -159,10 +159,54 @@ async function handleConsent(req, res) {
   res.redirect(`${redirect_uri}?code=${code}`);
 }
 
+// Handle Google OAuth callback — after Google authenticates the user
+// This skips the consent page since Google already handles permission
+async function handleGoogleCallback(req, res) {
+  const user = req.user; // Set by Passport after Google authentication
+
+  // Decode OAuth params from the `state` query parameter (sent via Google)
+  let oauthParams;
+  try {
+    const stateParam = req.query.state;
+    oauthParams = JSON.parse(Buffer.from(stateParam, 'base64').toString('utf8'));
+  } catch (e) {
+    return res.status(400).send("Invalid OAuth state. Please try logging in again.");
+  }
+
+  if (!oauthParams || !oauthParams.client_id) {
+    return res.status(400).send("OAuth parameters missing. Please try logging in again.");
+  }
+
+  const { client_id, redirect_uri, scope, code_challenge, code_challenge_method } = oauthParams;
+
+  // Generate authorization code (same as normal consent flow)
+  const code = uuidv4();
+  const expires_at = new Date(Date.now() + 5 * 60 * 1000); // 5 min expiry
+
+  // Store code in DB
+  await db.query(
+    "INSERT INTO authorization_codes (code, client_id, user_id, redirect_uri, scope, code_challenge, code_challenge_method, expires_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+    [
+      code,
+      client_id,
+      user.id,
+      redirect_uri,
+      scope,
+      code_challenge,
+      code_challenge_method,
+      expires_at,
+    ],
+  );
+
+  // Redirect back to client with code (merges back into normal PKCE flow)
+  res.redirect(`${redirect_uri}?code=${code}`);
+}
+
 module.exports = {
   showLogin,
   handleLogin,
   showRegister,
   handleRegister,
   handleConsent,
+  handleGoogleCallback,
 };

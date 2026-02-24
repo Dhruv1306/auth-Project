@@ -16,195 +16,63 @@
       <div class="glow glow1"></div>
       <div class="glow glow2"></div>
     </div>
-    <header class="navbar">
+    <header class="navbar" id="main-navbar">
+      <div class="navbar-glow" id="navbar-glow"></div>
       <div class="navbar-logo">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png"
-          alt="App Logo"
-        />
+        <div class="navbar-logo-icon">
+          <img src="/logo.jpg" alt="Modern Auth Logo" class="navbar-logo-img" />
+        </div>
         <span class="navbar-title">Modern Auth</span>
       </div>
       <nav class="navbar-links">
-        <a
-          href="#home"
-          onclick="
-            showSection('login');
-            return false;
-          "
-          title="Home"
-          class="navbar-home"
-        >
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            style="vertical-align: middle; margin-right: 6px"
-          >
-            <rect width="24" height="24" rx="6" fill="#ff8c3b" />
-            <path
-              d="M8 17V11H16V17"
-              stroke="#fff"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            <path
-              d="M12 17V13"
-              stroke="#fff"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            <path
-              d="M3 10L12 3L21 10"
-              stroke="#fff"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
+        <a href="#home" onclick="showSection('login');return false;" title="Home" class="navbar-home">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="vertical-align: -2px; margin-right: 6px;"><path d="M3 10L12 3L21 10V20A1 1 0 0120 21H4A1 1 0 013 20V10Z" stroke="currentColor" stroke-width="2" fill="none"/><path d="M9 21V12H15V21" stroke="currentColor" stroke-width="2"/></svg>
           Home
         </a>
-        <a
-          href="#features"
-          onclick="
-            showSection('features');
-            return false;
-          "
-          class="navbar-features"
-          title="Features"
-        >
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            style="vertical-align: middle; margin-right: 6px"
-          >
-            <rect width="24" height="24" rx="6" fill="#ff4e50" />
-            <path d="M12 2L15 8H9L12 2Z" fill="#fff" />
-            <path
-              d="M12 22V14"
-              stroke="#fff"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            <path d="M12 14L15 8H9L12 14Z" fill="#fff" />
-          </svg>
+        <a href="#features" onclick="showSection('features');return false;" class="navbar-features" title="Features">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="vertical-align: -2px; margin-right: 6px;"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
           Features
         </a>
-        <a
-          href="#docs"
-          onclick="
-            showSection('docs');
-            return false;
-          "
-          class="navbar-docs"
-          title="Docs"
-        >
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            style="vertical-align: middle; margin-right: 6px"
-          >
-            <rect width="24" height="24" rx="6" fill="#ff8c3b" />
-            <path
-              d="M6 4H18V20H6V4Z"
-              stroke="#fff"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            <path
-              d="M9 8H15"
-              stroke="#fff"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            <path
-              d="M9 12H15"
-              stroke="#fff"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            <path
-              d="M9 16H13"
-              stroke="#fff"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
+        <a href="#docs" onclick="showSection('docs');return false;" class="navbar-docs" title="Docs">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="vertical-align: -2px; margin-right: 6px;"><path d="M4 19.5A2.5 2.5 0 016.5 17H20" stroke="currentColor" stroke-width="2"/><path d="M6.5 2H20V22H6.5A2.5 2.5 0 014 19.5V4.5A2.5 2.5 0 016.5 2Z" stroke="currentColor" stroke-width="2" fill="none"/></svg>
           Docs
         </a>
-        <a
-          href="#about"
-          onclick="
-            showSection('about');
-            return false;
-          "
-          class="navbar-about"
-          title="About"
-        >
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            style="vertical-align: middle; margin-right: 6px"
-          >
-            <rect width="24" height="24" rx="6" fill="#23272f" />
-            <circle cx="12" cy="12" r="6" stroke="#fff" stroke-width="2" />
-            <path
-              d="M12 10V12"
-              stroke="#fff"
-              stroke-width="2"
-              stroke-linecap="round"
-            />
-            <circle cx="12" cy="15" r="1" fill="#fff" />
-          </svg>
+        <a href="#about" onclick="showSection('about');return false;" class="navbar-about" title="About">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="vertical-align: -2px; margin-right: 6px;"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/><path d="M12 16V12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="8" r="1" fill="currentColor"/></svg>
           About
         </a>
-        <a
-          id="nav-auth-btn"
-          href="#login"
-          class="navbar-login"
-          onclick="
-            login();
-            return false;
-          "
-          >Login</a
-        >
+        <a id="nav-auth-btn" href="#login" class="navbar-login" onclick="login();return false;">Login</a>
       </nav>
     </header>
     <main>
       <section class="hero tab-section" id="hero-section">
         <div class="hero-content">
-          <h1>OAuth_2.0 + PKCE Secure</h1>
+          <span class="hero-badge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="vertical-align: -2px; margin-right: 6px;"><path d="M12 22C12 22 20 18 20 12V5L12 2L4 5V12C4 18 12 22 12 22Z" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+            Secured by PKCE
+          </span>
+          <h1>Modern Auth Platform</h1>
           <p class="hero-desc">
-            Experience secure, modern authentication & authorization for your apps. Explore how
-            OAuth 2.0 with PKCE protects users and enables seamless login
-            flows.
+            A calm, secure authentication experience for your applications.
+            OAuth 2.0 with PKCE — protecting users with elegance.
           </p>
-          <button class="hero-btn" onclick="login()">Login with OAuth</button>
+          <div class="hero-actions">
+            <button class="hero-btn" onclick="login()">Get Started</button>
+            <button class="hero-btn-secondary" onclick="showSection('docs')">Learn More</button>
+          </div>
           <div id="session-message"></div>
         </div>
       </section>
       <section class="features tab-section" id="features-section">
         <h2>Features</h2>
+        <p class="features-subtitle">Built with modern security standards and developer experience in mind</p>
         <div class="features-list">
-          <div class="feature-item">
-            <span class="feature-icon">🔒</span>
+          <div class="feature-item glass-card" style="--delay: 0s; --accent: #ff8c3b;">
+            <div class="feature-accent"></div>
+            <div class="feature-icon-wrap">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="10" rx="2" stroke="currentColor" stroke-width="2" fill="none"/><path d="M8 11V7C8 4.79 9.79 3 12 3C14.21 3 16 4.79 16 7V11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="16" r="1.5" fill="currentColor"/></svg>
+            </div>
+            <span class="feature-tag">Security</span>
             <h3>Secure PKCE Flow</h3>
             <p>
               Implements Proof Key for Code Exchange for enhanced security in
@@ -212,8 +80,12 @@
               original client can exchange the code for a token.
             </p>
           </div>
-          <div class="feature-item">
-            <span class="feature-icon">⚡</span>
+          <div class="feature-item glass-card" style="--delay: 0.1s; --accent: #818cf8;">
+            <div class="feature-accent"></div>
+            <div class="feature-icon-wrap">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+            </div>
+            <span class="feature-tag">Performance</span>
             <h3>Fast Integration</h3>
             <p>
               Easy to integrate with your apps, with clear code and modular
@@ -221,16 +93,24 @@
               apps.
             </p>
           </div>
-          <div class="feature-item">
-            <span class="feature-icon">🛡️</span>
+          <div class="feature-item glass-card" style="--delay: 0.2s; --accent: #22c55e;">
+            <div class="feature-accent"></div>
+            <div class="feature-icon-wrap">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 22C12 22 20 18 20 12V5L12 2L4 5V12C4 18 12 22 12 22Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M9 12L11 14L15 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <span class="feature-tag">Standards</span>
             <h3>Modern Best Practices</h3>
             <p>
               Uses latest OAuth 2.0 and security standards for authentication.
               Supports refresh tokens, scopes, and granular access control.
             </p>
           </div>
-          <div class="feature-item">
-            <span class="feature-icon">💡</span>
+          <div class="feature-item glass-card" style="--delay: 0.3s; --accent: #f59e0b;">
+            <div class="feature-accent"></div>
+            <div class="feature-icon-wrap">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9C5 11.38 6.19 13.47 8 14.74V17C8 17.55 8.45 18 9 18H15C15.55 18 16 17.55 16 17V14.74C17.81 13.47 19 11.38 19 9C19 5.13 15.87 2 12 2Z" stroke="currentColor" stroke-width="2" fill="none"/><path d="M9 21H15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10 18V21M14 18V21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+            <span class="feature-tag">DX</span>
             <h3>Developer Friendly</h3>
             <p>
               Comprehensive documentation, sample code, and easy debugging.
@@ -245,28 +125,31 @@
 
         <!-- Architecture Cards -->
         <div class="docs-architecture">
-          <div class="docs-server-card">
-            <div class="docs-server-icon">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 2L3 7V12C3 17.55 6.84 22.74 12 24C17.16 22.74 21 17.55 21 12V7L12 2Z" stroke="#ff8c3b" stroke-width="2" fill="none"/><path d="M9 12L11 14L15 10" stroke="#ff8c3b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div class="docs-server-card" style="--accent: #ff8c3b;">
+            <div class="feature-accent"></div>
+            <div class="feature-icon-wrap" style="--accent: #ff8c3b;">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 2L3 7V12C3 17.55 6.84 22.74 12 24C17.16 22.74 21 17.55 21 12V7L12 2Z" stroke="currentColor" stroke-width="2" fill="none"/><path d="M9 12L11 14L15 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </div>
             <h3>Authorization Server</h3>
             <code class="docs-port">localhost:3010</code>
             <p>Handles user login, registration, consent, and issues JWT tokens via OAuth 2.0 + PKCE flow.</p>
           </div>
-          <div class="docs-server-card">
-            <div class="docs-server-icon">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><rect x="2" y="3" width="20" height="14" rx="3" stroke="#ff8c3b" stroke-width="2" fill="none"/><path d="M8 21H16" stroke="#ff8c3b" stroke-width="2" stroke-linecap="round"/><path d="M12 17V21" stroke="#ff8c3b" stroke-width="2" stroke-linecap="round"/></svg>
+          <div class="docs-server-card" style="--accent: #818cf8;">
+            <div class="feature-accent"></div>
+            <div class="feature-icon-wrap" style="--accent: #818cf8;">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><rect x="2" y="3" width="20" height="14" rx="3" stroke="currentColor" stroke-width="2" fill="none"/><path d="M8 21H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 17V21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
             </div>
             <h3>Client App</h3>
-            <code class="docs-port">localhost:3000</code>
+            <code class="docs-port" style="background: rgba(129,140,248,0.08); color: #818cf8; border-color: rgba(129,140,248,0.15);">localhost:3000</code>
             <p>The frontend SPA that users interact with. Initiates the PKCE flow and stores tokens securely.</p>
           </div>
-          <div class="docs-server-card">
-            <div class="docs-server-icon">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="8" rx="2" stroke="#ff8c3b" stroke-width="2" fill="none"/><rect x="2" y="14" width="20" height="8" rx="2" stroke="#ff8c3b" stroke-width="2" fill="none"/><circle cx="6" cy="6" r="1" fill="#ff8c3b"/><circle cx="6" cy="18" r="1" fill="#ff8c3b"/></svg>
+          <div class="docs-server-card" style="--accent: #22c55e;">
+            <div class="feature-accent"></div>
+            <div class="feature-icon-wrap" style="--accent: #22c55e;">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="8" rx="2" stroke="currentColor" stroke-width="2" fill="none"/><rect x="2" y="14" width="20" height="8" rx="2" stroke="currentColor" stroke-width="2" fill="none"/><circle cx="6" cy="6" r="1.5" fill="currentColor"/><circle cx="6" cy="18" r="1.5" fill="currentColor"/></svg>
             </div>
             <h3>Resource Server</h3>
-            <code class="docs-port">localhost:3002</code>
+            <code class="docs-port" style="background: rgba(34,197,94,0.08); color: #22c55e; border-color: rgba(34,197,94,0.15);">localhost:3002</code>
             <p>Serves protected API endpoints. Validates JWT tokens before returning user data.</p>
           </div>
         </div>
@@ -305,20 +188,29 @@
         </p>
 
         <div class="about-highlights">
-          <div class="about-card">
-            <span class="about-card-icon">🌐</span>
+          <div class="about-card" style="--accent: #60a5fa;">
+            <div class="feature-accent"></div>
+            <div class="feature-icon-wrap" style="--accent: #60a5fa;">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/><path d="M2 12H22" stroke="currentColor" stroke-width="2"/><path d="M12 2C14.5 4.5 16 8 16 12C16 16 14.5 19.5 12 22C9.5 19.5 8 16 8 12C8 8 9.5 4.5 12 2Z" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+            </div>
             <h3>Open Source</h3>
             <p>Modular codebase designed for exploration. Fork it, break it, learn from it.</p>
           </div>
-          <div class="about-card">
-            <span class="about-card-icon">📚</span>
+          <div class="about-card" style="--accent: #f59e0b;">
+            <div class="feature-accent"></div>
+            <div class="feature-icon-wrap" style="--accent: #f59e0b;">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M4 19.5A2.5 2.5 0 016.5 17H20" stroke="currentColor" stroke-width="2" fill="none"/><path d="M6.5 2H20V22H6.5A2.5 2.5 0 014 19.5V4.5A2.5 2.5 0 016.5 2Z" stroke="currentColor" stroke-width="2" fill="none"/><path d="M8 7H16M8 11H13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </div>
             <h3>Learning First</h3>
             <p>Every file is documented with clear comments explaining the why behind each step.</p>
           </div>
-          <div class="about-card">
-            <span class="about-card-icon">🚀</span>
+          <div class="about-card" style="--accent: #22c55e;">
+            <div class="feature-accent"></div>
+            <div class="feature-icon-wrap" style="--accent: #22c55e;">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M4.5 16.5C3.5 15 3 13 3 12C3 7.03 7.03 3 12 3C16.97 3 21 7.03 21 12C21 13 20.5 15 19.5 16.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M12 12V21M8 21H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M7.5 12L12 3L16.5 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+            </div>
             <h3>Future Ready</h3>
-            <p>Planned: Google Sign-In, social login, analytics dashboards, and customizable themes.</p>
+            <p>Google Sign-In integrated, social login, analytics dashboards, and customizable themes.</p>
           </div>
         </div>
 
@@ -378,6 +270,40 @@
         } else {
           showSection("login");
         }
+
+        // === NAVBAR CURSOR GLOW EFFECT ===
+        const navbar = document.getElementById('main-navbar');
+        const glow = document.getElementById('navbar-glow');
+        let glowX = 0, glowY = 0, targetX = 0, targetY = 0;
+        let glowActive = false;
+        let animationId = null;
+
+        function lerpGlow() {
+          glowX += (targetX - glowX) * 0.15;
+          glowY += (targetY - glowY) * 0.15;
+          glow.style.left = glowX + 'px';
+          glow.style.top = glowY + 'px';
+          if (glowActive) animationId = requestAnimationFrame(lerpGlow);
+        }
+
+        navbar.addEventListener('mousemove', function(e) {
+          const rect = navbar.getBoundingClientRect();
+          targetX = e.clientX - rect.left;
+          targetY = e.clientY - rect.top;
+          if (!glowActive) {
+            glowActive = true;
+            glowX = targetX;
+            glowY = targetY;
+            glow.style.opacity = '1';
+            lerpGlow();
+          }
+        });
+
+        navbar.addEventListener('mouseleave', function() {
+          glowActive = false;
+          if (animationId) cancelAnimationFrame(animationId);
+          glow.style.opacity = '0';
+        });
       });
       // Session expired message
       const params = new URLSearchParams(window.location.search);
@@ -420,6 +346,59 @@
           heroBtn.onclick = function() { window.location.href = '/dashboard.html'; return false; };
         }
       })();
+
+      // === TOAST NOTIFICATION SYSTEM ===
+      (function showToastNotifications() {
+        const params = new URLSearchParams(window.location.search);
+
+        if (params.get('deleted') === 'true') {
+          showToast('✓', 'Account deleted successfully', 'Your account and all data have been removed.', 'success');
+          window.history.replaceState({}, '', '/');
+        }
+
+        if (params.get('reason') === 'expired') {
+          showToast('⏱', 'Session Expired', 'Your session has expired. Please log in again.', 'warning');
+          window.history.replaceState({}, '', '/');
+        }
+
+        if (params.get('logged_out') === 'true') {
+          const userName = params.get('name') || 'User';
+          showToast('👋', 'Bye bye, ' + userName + '!!', 'You have successfully logged out.', 'info');
+          window.history.replaceState({}, '', '/');
+        }
+      })();
+
+      function showToast(icon, title, message, type) {
+        // Create toast container if it doesn't exist
+        let container = document.getElementById('toast-container');
+        if (!container) {
+          container = document.createElement('div');
+          container.id = 'toast-container';
+          document.body.appendChild(container);
+        }
+
+        const toast = document.createElement('div');
+        toast.className = 'toast-notification toast-' + type;
+        toast.innerHTML = `
+          <div class="toast-icon">${icon}</div>
+          <div class="toast-body">
+            <div class="toast-title">${title}</div>
+            <div class="toast-message">${message}</div>
+          </div>
+          <button class="toast-close" onclick="this.parentElement.classList.add('toast-exit'); setTimeout(() => this.parentElement.remove(), 300);">✕</button>
+          <div class="toast-progress"><div class="toast-progress-bar"></div></div>
+        `;
+
+        container.appendChild(toast);
+
+        // Auto remove after 5 seconds
+        setTimeout(() => {
+          if (toast.parentElement) {
+            toast.classList.add('toast-exit');
+            setTimeout(() => toast.remove(), 300);
+          }
+        }, 7000);
+      }
     </script>
   </body>
 </html>

@@ -18,63 +18,37 @@
     </div>
 
     <!-- Navbar -->
-    <header class="navbar">
+    <header class="navbar" id="main-navbar">
+      <div class="navbar-glow" id="navbar-glow"></div>
       <div class="navbar-logo">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png"
-          alt="App Logo"
-        />
+        <div class="navbar-logo-icon">
+          <img src="/logo.jpg" alt="Modern Auth Logo" class="navbar-logo-img" />
+        </div>
         <span class="navbar-title">Modern Auth</span>
       </div>
       <nav class="navbar-links">
         <a href="/" class="navbar-link" title="Home">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle; margin-right: 6px">
-            <path d="M3 10L12 3L21 10V20C21 20.55 20.55 21 20 21H4C3.45 21 3 20.55 3 20V10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M9 21V12H15V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="vertical-align: -2px; margin-right: 6px;"><path d="M3 10L12 3L21 10V20A1 1 0 0120 21H4A1 1 0 013 20V10Z" stroke="currentColor" stroke-width="2" fill="none"/><path d="M9 21V12H15V21" stroke="currentColor" stroke-width="2"/></svg>
           Home
         </a>
         <a href="/#features" class="navbar-link" title="Features" onclick="window.location.href='/#features'">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle; margin-right: 6px">
-            <rect width="20" height="20" x="2" y="2" rx="4" fill="#ff4e50" opacity="0.9"/>
-            <path d="M12 4L15 10H9L12 4Z" fill="#fff"/>
-            <path d="M12 20V12" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M12 12L15 10H9L12 12Z" fill="#fff"/>
-          </svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="vertical-align: -2px; margin-right: 6px;"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
           Features
         </a>
         <a href="/#docs" class="navbar-link" title="Docs" onclick="window.location.href='/#docs'">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle; margin-right: 6px">
-            <rect width="20" height="20" x="2" y="2" rx="4" fill="#ff8c3b" opacity="0.9"/>
-            <path d="M7 6H17V18H7V6Z" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M9 9H15" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M9 12H15" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M9 15H13" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="vertical-align: -2px; margin-right: 6px;"><path d="M4 19.5A2.5 2.5 0 016.5 17H20" stroke="currentColor" stroke-width="2"/><path d="M6.5 2H20V22H6.5A2.5 2.5 0 014 19.5V4.5A2.5 2.5 0 016.5 2Z" stroke="currentColor" stroke-width="2" fill="none"/></svg>
           Docs
         </a>
         <a href="/#about" class="navbar-link" title="About" onclick="window.location.href='/#about'">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle; margin-right: 6px">
-            <rect width="20" height="20" x="2" y="2" rx="4" fill="#23272f"/>
-            <circle cx="12" cy="12" r="5" stroke="#fff" stroke-width="1.5"/>
-            <path d="M12 10V12" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
-            <circle cx="12" cy="14.5" r="0.75" fill="#fff"/>
-          </svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="vertical-align: -2px; margin-right: 6px;"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/><path d="M12 16V12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="8" r="1" fill="currentColor"/></svg>
           About
         </a>
         <a href="#" class="navbar-link active" title="Profile">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle; margin-right: 6px">
-            <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2"/>
-            <path d="M4 20C4 16.69 7.58 14 12 14C16.42 14 20 16.69 20 20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="vertical-align: -2px; margin-right: 6px;"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2" fill="none"/><path d="M4 20C4 16.69 7.58 14 12 14C16.42 14 20 16.69 20 20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
           Profile
         </a>
         <button class="navbar-logout-btn" onclick="logout()" title="Logout">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle; margin-right: 6px">
-            <path d="M9 21H5C4.45 21 4 20.55 4 20V4C4 3.45 4.45 3 5 3H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <polyline points="16,17 21,12 16,7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <line x1="21" y1="12" x2="9" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="vertical-align: -2px; margin-right: 6px;"><path d="M9 21H5A2 2 0 013 19V5A2 2 0 015 3H9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><polyline points="16,17 21,12 16,7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="21" y1="12" x2="9" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
           Logout
         </button>
       </nav>
@@ -192,13 +166,55 @@
           <div id="api-response" class="api-response"></div>
         </div>
       </section>
+
+      <!-- Danger Zone -->
+      <section class="danger-zone-section">
+        <div class="danger-zone-card">
+          <div class="danger-zone-header">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 9V13M12 17H12.01" stroke="#ef4444" stroke-width="2" stroke-linecap="round"/>
+              <path d="M10.29 3.86L1.82 18A2 2 0 003.54 21H20.46A2 2 0 0022.18 18L13.71 3.86A2 2 0 0010.29 3.86Z" stroke="#ef4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            </svg>
+            <span>Danger Zone</span>
+          </div>
+          <p class="danger-zone-desc">
+            BE CAUTIOUS cause this will <strong>permanently delete</strong> your account and all associated data. This action is <strong>irreversible</strong>.
+          </p>
+          <button class="delete-account-btn" onclick="showDeleteConfirm()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle; margin-right: 8px">
+              <path d="M3 6H5H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M8 6V4A2 2 0 0110 2H14A2 2 0 0116 4V6M19 6V20A2 2 0 0117 22H7A2 2 0 015 20V6H19Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+              <path d="M10 11V17M14 11V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Delete Account Permanently
+          </button>
+        </div>
+      </section>
+
+      <!-- Delete Confirmation Modal -->
+      <div id="delete-modal" class="delete-modal-overlay" style="display: none;">
+        <div class="delete-modal">
+          <div class="delete-modal-icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+              <path d="M12 9V13M12 17H12.01" stroke="#ef4444" stroke-width="2" stroke-linecap="round"/>
+              <path d="M10.29 3.86L1.82 18A2 2 0 003.54 21H20.46A2 2 0 0022.18 18L13.71 3.86A2 2 0 0010.29 3.86Z" stroke="#ef4444" stroke-width="2" fill="none"/>
+            </svg>
+          </div>
+          <h3>Delete Account?</h3>
+          <p>This will permanently delete your account and all your data from the database. This action <strong>cannot be undone</strong>.</p>
+          <div class="delete-modal-actions">
+            <button class="delete-modal-cancel" onclick="hideDeleteConfirm()">Cancel</button>
+            <button class="delete-modal-confirm" onclick="deleteAccount()">Yes, Delete My Account</button>
+          </div>
+        </div>
+      </div>
     </main>
 
     <!-- Footer -->
     <footer class="footer">
       <div class="footer-content">
-        <span>&copy; 2026 Modern Auth Project</span>
-        <span>Made with <span style="color: #ff4e50">&#10084;</span> for developers</span>
+        <span>&copy; 2026 Modern Auth</span>
+        <span>Built with ❤️ by <strong>Dhruv Singh Dalal</strong></span>
       </div>
     </footer>
 
@@ -339,6 +355,159 @@
 
       // Run on page load
       populateProfile();
+
+      // === DELETE ACCOUNT ===
+      function showDeleteConfirm() {
+        document.getElementById('delete-modal').style.display = 'flex';
+      }
+
+      function hideDeleteConfirm() {
+        document.getElementById('delete-modal').style.display = 'none';
+      }
+
+      // Close modal when clicking outside
+      document.getElementById('delete-modal').addEventListener('click', function(e) {
+        if (e.target === this) hideDeleteConfirm();
+      });
+
+      async function deleteAccount() {
+        const token = getAccessToken();
+        if (!token) {
+          alert('No access token found. Please log in again.');
+          return;
+        }
+
+        try {
+          const res = await fetch('http://localhost:3010/api/delete-account', {
+            method: 'DELETE',
+            headers: {
+              'Authorization': 'Bearer ' + token,
+              'Content-Type': 'application/json',
+            },
+          });
+
+          if (res.ok) {
+            // Account deleted — clear tokens and redirect
+            clearTokens();
+            window.location.replace('/?deleted=true');
+          } else {
+            const data = await res.json();
+            alert('Failed to delete account: ' + (data.error || 'Unknown error'));
+          }
+        } catch (err) {
+          alert('Error deleting account: ' + err.message);
+        }
+      }
+
+      // === LOGIN SUCCESS TOAST ===
+      // Show "logged in" toast only on the first visit after login
+      (function showLoginToast() {
+        if (!sessionStorage.getItem('login_toast_shown')) {
+          sessionStorage.setItem('login_toast_shown', 'true');
+          // Get user name from id_token
+          let userName = 'User';
+          try {
+            const idToken = sessionStorage.getItem('id_token');
+            if (idToken) {
+              const payload = JSON.parse(atob(idToken.split('.')[1]));
+              userName = payload.name || payload.email || 'User';
+            }
+          } catch(e) {}
+          const firstName = userName.split(' ')[0];
+          showToast('✓', 'Welcome, ' + firstName + '!!', 'You have successfully logged in.', 'success');
+        }
+      })();
+
+      function showToast(icon, title, message, type) {
+        let container = document.getElementById('toast-container');
+        if (!container) {
+          container = document.createElement('div');
+          container.id = 'toast-container';
+          container.style.cssText = 'position:fixed;top:90px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:12px;pointer-events:none;';
+          document.body.appendChild(container);
+        }
+
+        const toast = document.createElement('div');
+        toast.style.cssText = `
+          pointer-events:all;display:flex;align-items:flex-start;gap:14px;min-width:340px;max-width:420px;
+          padding:16px 18px 20px 18px;border-radius:16px;
+          background:rgba(30,34,44,0.65);backdrop-filter:blur(24px) saturate(1.4);
+          -webkit-backdrop-filter:blur(24px) saturate(1.4);
+          border:1px solid rgba(255,255,255,0.08);
+          box-shadow:0 8px 32px rgba(0,0,0,0.4),0 0 0 1px rgba(255,255,255,0.03) inset;
+          position:relative;overflow:hidden;
+          animation:toastSlideIn 0.4s cubic-bezier(0.16,1,0.3,1) both;
+        `;
+
+        const iconBg = type === 'success' ? 'rgba(34,197,94,0.15)' : 'rgba(245,158,11,0.15)';
+        const iconColor = type === 'success' ? '#22c55e' : '#f59e0b';
+        const barColor = type === 'success' ? 'linear-gradient(90deg,#22c55e,#16a34a)' : 'linear-gradient(90deg,#f59e0b,#d97706)';
+
+        toast.innerHTML = `
+          <div style="width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:700;flex-shrink:0;background:${iconBg};color:${iconColor};border:1px solid ${iconColor}22;">${icon}</div>
+          <div style="flex:1;min-width:0;">
+            <div style="font-size:0.92rem;font-weight:700;color:#fff;margin-bottom:3px;">${title}</div>
+            <div style="font-size:0.8rem;color:#8a919a;line-height:1.4;">${message}</div>
+          </div>
+          <button onclick="this.parentElement.style.animation='toastSlideOut 0.3s forwards';setTimeout(()=>this.parentElement.remove(),300);" style="background:none;border:none;color:#555;font-size:0.85rem;cursor:pointer;padding:4px;border-radius:8px;">✕</button>
+          <div style="position:absolute;bottom:0;left:0;right:0;height:3px;background:rgba(255,255,255,0.05);border-radius:0 0 16px 16px;overflow:hidden;">
+            <div style="height:100%;width:100%;background:${barColor};animation:toastProgress 7s linear forwards;"></div>
+          </div>
+        `;
+
+        container.appendChild(toast);
+        setTimeout(() => {
+          if (toast.parentElement) {
+            toast.style.animation = 'toastSlideOut 0.3s forwards';
+            setTimeout(() => toast.remove(), 300);
+          }
+        }, 7000);
+      }
+
+      // Add keyframes for toast animations
+      if (!document.getElementById('toast-keyframes')) {
+        const style = document.createElement('style');
+        style.id = 'toast-keyframes';
+        style.textContent = `
+          @keyframes toastSlideIn { from { transform: translateX(120%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+          @keyframes toastSlideOut { to { transform: translateX(120%); opacity: 0; } }
+          @keyframes toastProgress { from { width: 100%; } to { width: 0%; } }
+        `;
+        document.head.appendChild(style);
+      }
+    </script>
+    <script>
+      // === NAVBAR CURSOR GLOW EFFECT ===
+      (function() {
+        const navbar = document.getElementById('main-navbar');
+        const glow = document.getElementById('navbar-glow');
+        if (!navbar || !glow) return;
+        let glowX = 0, glowY = 0, targetX = 0, targetY = 0;
+        let glowActive = false, animationId = null;
+        function lerpGlow() {
+          glowX += (targetX - glowX) * 0.15;
+          glowY += (targetY - glowY) * 0.15;
+          glow.style.left = glowX + 'px';
+          glow.style.top = glowY + 'px';
+          if (glowActive) animationId = requestAnimationFrame(lerpGlow);
+        }
+        navbar.addEventListener('mousemove', function(e) {
+          const rect = navbar.getBoundingClientRect();
+          targetX = e.clientX - rect.left;
+          targetY = e.clientY - rect.top;
+          if (!glowActive) {
+            glowActive = true;
+            glowX = targetX; glowY = targetY;
+            glow.style.opacity = '1';
+            lerpGlow();
+          }
+        });
+        navbar.addEventListener('mouseleave', function() {
+          glowActive = false;
+          if (animationId) cancelAnimationFrame(animationId);
+          glow.style.opacity = '0';
+        });
+      })();
     </script>
   </body>
 </html>

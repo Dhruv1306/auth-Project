@@ -17,6 +17,12 @@ module.exports = {
     database: process.env.DB_NAME,
   },
 
+  google: {
+    clientId: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    callbackURL: "http://localhost:3010/auth/google/callback",
+  },
+
   server: {
     port: process.env.PORT || 3001,
   },

@@ -28,4 +28,5 @@ function clearTokens() {
     sessionStorage.removeItem('access_token');
     sessionStorage.removeItem('id_token');
     sessionStorage.removeItem('code_verifier');
+    sessionStorage.removeItem('login_toast_shown');
 }
