@@ -18,6 +18,9 @@ app.use(cors({
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "src/views"));
 
+// Serve static files (CSS, JS, images) from /src
+app.use(express.static(path.join(__dirname, "src")));
+
 // Use OAuth routes
 app.use("/", oauthRoutes);
 

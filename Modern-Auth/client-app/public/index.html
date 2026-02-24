@@ -1,31 +1,343 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>OAuth 2.0 PKCE Demo</title>
-    <link rel="stylesheet" href="/src/css/style.css">
-</head>
-<body>
-    <div class="container">
-        <h1>Welcome to OAuth 2.0  + PKCE Demo</h1>
-        <p>Click the button below to login securely</p>
-        <button onclick="login()">Login with OAuth</button>  <!-- This login button works with the Authorization server. -->
+    <link rel="stylesheet" href="/src/css/style.css" />
+    <!-- Google Fonts for modern look -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="glow-bg">
+      <div class="glow glow1"></div>
+      <div class="glow glow2"></div>
     </div>
-
-
-    <div id="session-message" style="color: red; font-weight: bold;"></div>
-
+    <header class="navbar">
+      <div class="navbar-logo">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png"
+          alt="App Logo"
+        />
+        <span class="navbar-title">Modern Auth</span>
+      </div>
+      <nav class="navbar-links">
+        <a
+          href="#home"
+          onclick="
+            showSection('login');
+            return false;
+          "
+          title="Home"
+          class="navbar-home"
+        >
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            style="vertical-align: middle; margin-right: 6px"
+          >
+            <rect width="24" height="24" rx="6" fill="#ff8c3b" />
+            <path
+              d="M8 17V11H16V17"
+              stroke="#fff"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M12 17V13"
+              stroke="#fff"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M3 10L12 3L21 10"
+              stroke="#fff"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          Home
+        </a>
+        <a
+          href="#features"
+          onclick="
+            showSection('features');
+            return false;
+          "
+          class="navbar-features"
+          title="Features"
+        >
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            style="vertical-align: middle; margin-right: 6px"
+          >
+            <rect width="24" height="24" rx="6" fill="#ff4e50" />
+            <path d="M12 2L15 8H9L12 2Z" fill="#fff" />
+            <path
+              d="M12 22V14"
+              stroke="#fff"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path d="M12 14L15 8H9L12 14Z" fill="#fff" />
+          </svg>
+          Features
+        </a>
+        <a
+          href="#docs"
+          onclick="
+            showSection('docs');
+            return false;
+          "
+          class="navbar-docs"
+          title="Docs"
+        >
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            style="vertical-align: middle; margin-right: 6px"
+          >
+            <rect width="24" height="24" rx="6" fill="#ff8c3b" />
+            <path
+              d="M6 4H18V20H6V4Z"
+              stroke="#fff"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M9 8H15"
+              stroke="#fff"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M9 12H15"
+              stroke="#fff"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M9 16H13"
+              stroke="#fff"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          Docs
+        </a>
+        <a
+          href="#about"
+          onclick="
+            showSection('about');
+            return false;
+          "
+          class="navbar-about"
+          title="About"
+        >
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            style="vertical-align: middle; margin-right: 6px"
+          >
+            <rect width="24" height="24" rx="6" fill="#23272f" />
+            <circle cx="12" cy="12" r="6" stroke="#fff" stroke-width="2" />
+            <path
+              d="M12 10V12"
+              stroke="#fff"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+            <circle cx="12" cy="15" r="1" fill="#fff" />
+          </svg>
+          About
+        </a>
+        <a
+          href="#login"
+          class="navbar-login"
+          onclick="
+            login();
+            return false;
+          "
+          >Login</a
+        >
+      </nav>
+    </header>
+    <main>
+      <section class="hero tab-section" id="hero-section">
+        <div class="hero-content">
+          <h1>OAuth_2.0 + PKCE Secure</h1>
+          <p class="hero-desc">
+            Experience secure, modern authentication & authorization for your apps. Explore how
+            OAuth 2.0 with PKCE protects users and enables seamless login
+            flows.
+          </p>
+          <button class="hero-btn" onclick="login()">Login with OAuth</button>
+          <div id="session-message"></div>
+        </div>
+      </section>
+      <section class="features tab-section" id="features-section">
+        <h2>Features</h2>
+        <div class="features-list">
+          <div class="feature-item">
+            <span class="feature-icon">🔒</span>
+            <h3>Secure PKCE Flow</h3>
+            <p>
+              Implements Proof Key for Code Exchange for enhanced security in
+              public clients. Prevents interception attacks and ensures only the
+              original client can exchange the code for a token.
+            </p>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">⚡</span>
+            <h3>Fast Integration</h3>
+            <p>
+              Easy to integrate with your apps, with clear code and modular
+              structure. Works out-of-the-box for SPAs, mobile, and server-side
+              apps.
+            </p>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">🛡️</span>
+            <h3>Modern Best Practices</h3>
+            <p>
+              Uses latest OAuth 2.0 and security standards for authentication.
+              Supports refresh tokens, scopes, and granular access control.
+            </p>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">💡</span>
+            <h3>Developer Friendly</h3>
+            <p>
+              Comprehensive documentation, sample code, and easy debugging.
+              Designed for rapid prototyping and learning.
+            </p>
+          </div>
+        </div>
+      </section>
+      <section class="docs tab-section" id="docs-section">
+        <h2>Documentation</h2>
+        <p>This project runs three main servers:</p>
+        <ul style="text-align: left; margin: 0 auto; max-width: 600px">
+          <li>
+            <b>Authorization Server:</b> <code>localhost:3000</code> (default
+            port)
+          </li>
+          <li><b>Client App:</b> <code>localhost:3001</code> (default port)</li>
+          <li>
+            <b>Resource Server:</b> <code>localhost:3002</code> (default port)
+          </li>
+        </ul>
+        <p>
+          Each server is modular and can be run independently. For more
+          information about PKCE and OAuth 2.0, see below:
+        </p>
+        <p>
+          Read the
+          <a href="https://oauth.net/2/pkce/" target="_blank"
+            >OAuth 2.0 PKCE documentation</a
+          >
+          to learn more about the protocol and its benefits.
+        </p>
+      </section>
+      <section class="about tab-section" id="about-section">
+        <h2>About This Project</h2>
+        <p>
+          This demo showcases a modern authentication flow using OAuth 2.0 and
+          PKCE, suitable for SPAs, mobile, and public clients. Built for
+          learning and rapid prototyping.
+        </p>
+        <p>
+          Features include modular code, easy integration, and robust security.
+          The project is open source and welcomes contributions. For feedback or
+          collaboration, contact the author or visit the GitHub repository.
+        </p>
+        <p>
+          Future enhancements may include social login, advanced analytics, and
+          customizable UI themes.
+        </p>
+      </section>
+    </main>
+    <footer class="footer">
+      <div class="footer-content">
+        <span>&copy; 2026 Modern Auth Project</span>
+        <span
+          >Made with <span style="color: #ff4e50">&#10084;</span> for
+          developers</span
+        >
+      </div>
+    </footer>
     <!-- Load scripts in order (dependencies first) -->
     <script src="/src/js/pkce.js"></script>
     <script src="/src/js/storage.js"></script>
     <script src="/src/js/auth.js"></script>
     <script>
-        const params = new URLSearchParams(window.location.search);
-if (params.get('reason') === 'expired') {
-    document.getElementById('session-message').textContent =
-        'Your session has expired. Please log in again.';
-}
+      // Section tab navigation with smooth fade animation
+      function showSection(section) {
+        // Hide all tab sections
+        const sections = ["features", "docs", "about"];
+        sections.forEach((s) => {
+          const el = document.getElementById(s + "-section");
+          if (el) {
+            el.style.opacity = 0;
+            el.style.pointerEvents = "none";
+            el.style.display = "none";
+          }
+        });
+        // Hide hero section except for login
+        document.getElementById("hero-section").style.opacity =
+          section === "login" ? 1 : 0;
+        document.getElementById("hero-section").style.display =
+          section === "login" ? "block" : "none";
+        // Show selected section
+        const showEl = document.getElementById(section + "-section");
+        if (showEl) {
+          showEl.style.display = "block";
+          setTimeout(() => {
+            showEl.style.opacity = 1;
+            showEl.style.pointerEvents = "auto";
+          }, 10);
+        }
+      }
+      // On page load, check hash and show correct section
+      window.addEventListener("DOMContentLoaded", function () {
+        const hash = window.location.hash.replace('#', '');
+        const validSections = ["features", "docs", "about"];
+        if (hash && validSections.includes(hash)) {
+          showSection(hash);
+        } else {
+          showSection("login");
+        }
+      });
+      // Session expired message
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("reason") === "expired") {
+        document.getElementById("session-message").textContent =
+          "Your session has expired. Please log in again.";
+      }
     </script>
-</body>
+  </body>
 </html>
