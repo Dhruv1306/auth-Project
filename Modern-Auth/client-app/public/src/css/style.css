@@ -314,7 +314,7 @@ body {
 
 /* Features Section */
 .features {
-  margin: -4px auto 0 auto;
+  margin: -3px auto 0 auto;
   max-width: 1000px;
   padding: 0px 24px 48px 24px;
   text-align: center;
@@ -475,7 +475,7 @@ body {
 
 /* Docs Section */
 .docs {
-  margin: -4px auto 0 auto;
+  margin: -3px auto 0 auto;
   max-width: 1000px;
   padding: 0px 24px 32px 24px;
   text-align: center;
@@ -678,7 +678,7 @@ body {
 
 /* About Section */
 .about {
-  margin: -4px auto 0 auto;
+  margin: -3px auto 0 auto;
   max-width: 1000px;
   padding: 0px 24px 48px 24px;
   text-align: center;
