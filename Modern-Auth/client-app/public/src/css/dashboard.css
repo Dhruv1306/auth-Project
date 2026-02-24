@@ -257,7 +257,7 @@ body {
   width: 100%;
   max-width: 900px;
   margin: 0 auto;
-  padding: 110px 24px 40px 24px;
+  padding: 85px 24px 40px 24px;
   flex: 1 0 auto;
 }
 
@@ -266,7 +266,7 @@ body {
    ============================================ */
 .profile-hero {
   text-align: center;
-  padding: 48px 24px 36px 24px;
+  padding: 24px 24px 36px 24px;
   margin-bottom: 36px;
   animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
