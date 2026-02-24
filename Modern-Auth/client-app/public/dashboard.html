@@ -378,7 +378,12 @@
         }
 
         try {
-          const res = await fetch('http://localhost:3010/api/delete-account', {
+          // Use the Authorization Server URL (dynamic)
+          const AUTH_SERVER = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
+            ? 'http://localhost:3010' 
+            : 'https://modern-auth-server.onrender.com';
+
+          const res = await fetch(`${AUTH_SERVER}/api/delete-account`, {
             method: 'DELETE',
             headers: {
               'Authorization': 'Bearer ' + token,
