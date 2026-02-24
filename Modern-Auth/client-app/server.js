@@ -15,11 +15,8 @@ app.use('/dashboard.html', (req, res, next) => {
     next();
 });
 
-// Serve static files from 'public' folder
+// Serve static files from 'public' folder (now contains both pages and assets)
 app.use(express.static(path.join(__dirname, 'public')));
-
-// Serve JS and CSS from 'src' folder
-app.use('/src', express.static(path.join(__dirname, 'src')));
 
 // Default route - serve index.html
 app.get('/', (req, res) => {

@@ -21,10 +21,11 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: #111;
+  background: #09090b;
   color: #fff;
-  font-family: "Montserrat", Arial, sans-serif;
+  font-family: 'Montserrat', sans-serif;
   overflow-x: hidden;
+  background-attachment: fixed;
   position: relative;
 }
 
@@ -42,9 +43,10 @@ body {
 .glow-bg .glow {
   position: absolute;
   border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.35;
-  animation: pulse 6s ease-in-out infinite alternate;
+  filter: blur(60px) saturate(2);
+  opacity: 0.55;
+  mix-blend-mode: screen;
+  animation: pulse 8s ease-in-out infinite alternate;
 }
 
 .glow-bg .glow1 {
@@ -81,9 +83,9 @@ body {
    ============================================ */
 .navbar {
   width: 100%;
-  background: rgba(17, 17, 17, 0.6);
-  backdrop-filter: blur(20px) saturate(1.1);
-  -webkit-backdrop-filter: blur(20px) saturate(1.1);
+  background: rgba(10, 10, 12, 0.45);
+  backdrop-filter: blur(12px) saturate(1.2);
+  -webkit-backdrop-filter: blur(12px) saturate(1.2);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -819,10 +821,10 @@ body {
 }
 
 .delete-modal {
-  background: rgba(24, 28, 36, 0.75);
-  backdrop-filter: blur(24px) saturate(1.05);
-  -webkit-backdrop-filter: blur(24px) saturate(1.05);
-  border: 1px solid rgba(239, 68, 68, 0.15);
+  background: rgba(20, 20, 24, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(239, 68, 68, 0.2);
   border-radius: 20px;
   padding: 36px 32px;
   max-width: 420px;
