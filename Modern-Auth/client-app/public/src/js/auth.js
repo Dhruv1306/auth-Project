@@ -4,8 +4,8 @@
 const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
 
 const config = {
-  authorizationEndpoint: isLocal ? "http://localhost:3010/authorize" : "https://auth-project-auth-server.onrender.com/authorize",
-  tokenEndpoint: isLocal ? "http://localhost:3010/token" : "https://auth-project-auth-server.onrender.com/token",
+  authorizationEndpoint: isLocal ? "http://localhost:3010/authorize" : "https://modern-auth-server.onrender.com/authorize",
+  tokenEndpoint: isLocal ? "http://localhost:3010/token" : "https://modern-auth-server.onrender.com/token",
   clientId: "my-client-app",
   redirectUri: isLocal ? "http://localhost:3000/callback.html" : `${window.location.origin}/callback.html`,
   scope: "openid profile",

@@ -7,7 +7,7 @@
 
 const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
     ? 'http://localhost:3002' 
-    : 'https://auth-project-resource-server.onrender.com'; // Replace with your actual deployed Resource Server URL
+    : 'https://modern-auth-resource.onrender.com';
 
 async function fetchProtectedData() {
     const token = getAccessToken();
