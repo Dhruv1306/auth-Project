@@ -14,7 +14,7 @@ const app = express();
 
 app.use(bodyParser);
 app.use(cors({
-    origin: 'http://localhost:3000', // This will only allow our client app for resource sharing at different origins
+    origin: process.env.CLIENT_URL || 'http://localhost:3000', // This will only allow our client app for resource sharing at different origins
     methods: ['GET', 'POST', 'DELETE'],
     credentials: true
 }));

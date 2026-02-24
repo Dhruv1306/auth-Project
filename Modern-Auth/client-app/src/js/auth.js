@@ -1,11 +1,13 @@
 // This file handles the OAuth flow — starting login and exchanging the code for tokens.
 
 // Configuration
+const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+
 const config = {
-  authorizationEndpoint: "http://localhost:3010/authorize",
-  tokenEndpoint: "http://localhost:3010/token",
+  authorizationEndpoint: isLocal ? "http://localhost:3010/authorize" : "https://auth-project-auth-server.onrender.com/authorize",
+  tokenEndpoint: isLocal ? "http://localhost:3010/token" : "https://auth-project-auth-server.onrender.com/token",
   clientId: "my-client-app",
-  redirectUri: "http://localhost:3000/callback.html",
+  redirectUri: isLocal ? "http://localhost:3000/callback.html" : `${window.location.origin}/callback.html`,
   scope: "openid profile",
 };
 
