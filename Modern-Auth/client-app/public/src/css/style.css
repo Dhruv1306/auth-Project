@@ -314,9 +314,9 @@ body {
 
 /* Features Section */
 .features {
-  margin: 0px auto 0 auto;
+  margin: -4px auto 0 auto;
   max-width: 1000px;
-  padding: 10px 24px 48px 24px;
+  padding: 0px 24px 48px 24px;
   text-align: center;
   border-radius: 24px;
 }
@@ -475,9 +475,9 @@ body {
 
 /* Docs Section */
 .docs {
-  margin: 0px auto 0 auto;
+  margin: -4px auto 0 auto;
   max-width: 1000px;
-  padding: 10px 24px 32px 24px;
+  padding: 0px 24px 32px 24px;
   text-align: center;
   border-radius: 24px;
 }
@@ -678,9 +678,9 @@ body {
 
 /* About Section */
 .about {
-  margin: 0px auto 0 auto;
+  margin: -4px auto 0 auto;
   max-width: 1000px;
-  padding: 10px 24px 48px 24px;
+  padding: 0px 24px 48px 24px;
   text-align: center;
   border-radius: 24px;
 }
