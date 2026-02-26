@@ -18,8 +18,11 @@ function errorHandler(err, req, res, next) {
   if (isDbConnectionError) {
     const message = 'The database is waking up. Please try again in 10 seconds.';
     
-    // Check if the request expects HTML (like a browser page)
-    if (req.accepts('html')) {
+    // Force JSON if it's a token exchange or API request
+    const isApiRequest = req.path === '/token' || req.path.startsWith('/api/');
+
+    // Check if the request expects HTML (like a browser page) and it's NOT an API call
+    if (req.accepts('html') && !isApiRequest) {
         return res.status(503).send(`
             <div style="font-family: sans-serif; text-align: center; padding: 50px; background: #f8f9fa;">
                 <h1 style="color: #333;">🚀 Server is Waking Up</h1>

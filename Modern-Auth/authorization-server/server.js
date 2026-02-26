@@ -14,12 +14,19 @@ const app = express();
 
 app.use(bodyParser);
 app.use(cors({
-    origin: process.env.CLIENT_URL || 'http://localhost:3000', // This will only allow our client app for resource sharing at different origins
-    methods: ['GET', 'POST', 'DELETE'],
+    origin: function (origin, callback) {
+        const allowedOrigins = [process.env.CLIENT_URL, 'http://localhost:3000'];
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    methods: ['GET', 'POST', 'DELETE', 'OPTIONS'],
     credentials: true
 }));
 
-// Session middleware — needed to store OAuth params during Google redirect
+// Session middleware — needed to store OAuth params
 app.use(session({
     secret: config.jwt.secret,
     resave: false,

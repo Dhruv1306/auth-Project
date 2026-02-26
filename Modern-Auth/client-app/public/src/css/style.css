@@ -442,13 +442,13 @@ body {
 
 /* Hover — lift, glow, tilt */
 .glass-card:hover {
-  transform: translateY(-6px);
-  border-color: rgba(255, 255, 255, 0.12);
+  transform: translateY(-10px) scale(1.03);
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.08);
   box-shadow:
-    0 12px 40px rgba(0, 0, 0, 0.3),
-    0 0 0 1px rgba(255, 255, 255, 0.06) inset,
-    0 0 60px -12px rgba(255, 140, 59, 0.08);
-  background: rgba(255, 255, 255, 0.06);
+    0 20px 50px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.1) inset,
+    0 0 50px -10px var(--accent);
 }
 
 .glass-card:hover .feature-accent {
@@ -527,12 +527,13 @@ body {
   transition: width 0.35s ease;
 }
 .docs-server-card:hover {
-  transform: translateY(-5px);
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.12);
+  transform: translateY(-10px) scale(1.03);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.18);
   box-shadow:
-    0 12px 40px rgba(0, 0, 0, 0.3),
-    0 0 0 1px rgba(255, 255, 255, 0.06) inset;
+    0 20px 50px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.1) inset,
+    0 0 50px -10px var(--accent);
 }
 .docs-server-card:hover::before {
   width: 80px;
@@ -589,8 +590,17 @@ body {
   text-align: left;
   position: relative;
   overflow: hidden;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   animation: glassCardIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
   animation-delay: var(--delay, 0s);
+}
+.docs-flow-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 
+    0 15px 40px rgba(0, 0, 0, 0.3),
+    0 0 40px -10px #ff8c3b;
 }
 .docs-flow-card::before {
   content: "";
@@ -732,12 +742,13 @@ body {
   transition: width 0.35s ease;
 }
 .about-card:hover {
-  transform: translateY(-5px);
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.12);
+  transform: translateY(-10px) scale(1.03);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.18);
   box-shadow:
-    0 12px 40px rgba(0, 0, 0, 0.3),
-    0 0 0 1px rgba(255, 255, 255, 0.06) inset;
+    0 20px 50px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.1) inset,
+    0 0 50px -10px var(--accent);
 }
 .about-card:hover::before {
   width: 80px;
@@ -832,22 +843,63 @@ body {
 .footer {
   width: 100%;
   background: transparent;
-  padding: 24px 0;
-  text-align: center;
-  box-shadow: none;
+  padding: 32px 48px;
   position: relative;
   z-index: 10;
-  margin-top: 0;
+  margin-top: 40px;
   flex-shrink: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.03);
 }
 .footer-content {
   display: flex;
-  flex-direction: column;
-  gap: 8px;
   align-items: center;
-  justify-content: center;
-  color: #b0b8c1;
-  font-size: 1rem;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  color: #8a919a;
+  font-size: 0.85rem;
+}
+.footer-controls {
+  display: flex;
+  gap: 20px;
+}
+.footer-control-btn {
+  background: none;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  font-family: inherit;
+  transition: all 0.2s ease;
+  padding: 6px 10px;
+  border-radius: 8px;
+}
+.footer-control-btn:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.05);
+}
+.footer-control-btn svg {
+  opacity: 0.7;
+}
+.footer-control-btn:hover svg {
+  opacity: 1;
+}
+.footer-info {
+  text-align: right;
+  line-height: 1.4;
+}
+.footer-info p {
+  margin: 2px 0 0 0;
+}
+.footer-info strong {
+  color: #d1d5db;
+}
+#sound-status {
+  text-transform: lowercase;
+  font-weight: 600;
 }
 
 /* Glowing circuit effect */

@@ -52,27 +52,32 @@ async function handleCallback() {
   const codeVerifier = getCodeVerifier();
 
   // Exchange code for tokens
-  const response = await fetch(config.tokenEndpoint, {
-    method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: new URLSearchParams({
-      grant_type: "authorization_code",
-      code: code,
-      redirect_uri: config.redirectUri,
-      client_id: config.clientId,
-      code_verifier: codeVerifier,
-    }),
-  });
+  try {
+    const response = await fetch(config.tokenEndpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams({
+        grant_type: "authorization_code",
+        code: code,
+        redirect_uri: config.redirectUri,
+        client_id: config.clientId,
+        code_verifier: codeVerifier,
+      }),
+    });
 
-  const data = await response.json();
+    const data = await response.json();
 
-  if (data.access_token) {
-    storeTokens(data.access_token, data.id_token);
-    clearCodeVerifier();
-    return { success: true };
+    if (data.access_token) {
+      storeTokens(data.access_token, data.id_token);
+      clearCodeVerifier();
+      return { success: true };
+    }
+
+    return { success: false, error: data.message || data.error || "Token exchange failed" };
+  } catch (err) {
+    console.error("Token exchange failed:", err);
+    return { success: false, error: "Network error or server unavailable. Please try again." };
   }
-
-  return { success: false, error: data.error };
 }
 
 // Logout — clears all tokens and replaces history to prevent back-button bypass

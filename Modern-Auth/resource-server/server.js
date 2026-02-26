@@ -6,8 +6,15 @@ const app = express();
 
 // CORS middleware should be at the top, before any routes. Otherwise, preflight (OPTIONS) requests will not get handled correctly.
 app.use(cors({
-    origin: process.env.CLIENT_URL || "http://localhost:3000",
-    methods: ["GET", "POST"],
+    origin: function (origin, callback) {
+        const allowedOrigins = [process.env.CLIENT_URL, 'http://localhost:3000'];
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    methods: ["GET", "POST", "OPTIONS"],
     credentials: true,
   }),
 );

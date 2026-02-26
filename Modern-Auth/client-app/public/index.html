@@ -225,8 +225,16 @@
     </main>
     <footer class="footer">
       <div class="footer-content">
-        <span>&copy; 2026 Modern Auth</span>
-        <p>Built with ❤️ by <strong>Dhruv Singh Dalal</strong></p>
+        <div class="footer-controls">
+          <button id="fullscreen-btn" class="footer-control-btn" onclick="toggleFullscreen()" title="Toggle Fullscreen">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+            <span id="fullscreen-text">Fullscreen mode</span>
+          </button>
+        </div>
+        <div class="footer-info">
+          <span>&copy; 2026 Modern Auth</span>
+          <p>Built with ❤️ by <strong>Dhruv Singh Dalal</strong></p>
+        </div>
       </div>
     </footer>
     <!-- Load scripts in order (dependencies first) -->
@@ -399,6 +407,59 @@
           }
         }, 7000);
       }
+
+      // === FOOTER CONTROLS: Fullscreen & Alert Sound ===
+      function toggleFullscreen() {
+        const text = document.getElementById("fullscreen-text");
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen().then(() => {
+            text.textContent = "Exit fullscreen mode";
+            sessionStorage.setItem('fullscreen_pref', 'true');
+          }).catch(err => {
+            showToast('❌', 'Error', 'Could not enable fullscreen mode', 'error');
+          });
+        } else {
+          if (document.exitFullscreen) {
+            document.exitFullscreen().then(() => {
+              text.textContent = "Fullscreen mode";
+              sessionStorage.setItem('fullscreen_pref', 'false');
+            });
+          }
+        }
+      }
+
+      // Handle Escape key or other ways of exiting fullscreen
+      document.addEventListener('fullscreenchange', () => {
+        const text = document.getElementById("fullscreen-text");
+        if (!document.fullscreenElement) {
+          text.textContent = "Fullscreen mode";
+          if (!window._navigating) sessionStorage.setItem('fullscreen_pref', 'false');
+        } else {
+          text.textContent = "Exit fullscreen mode";
+          sessionStorage.setItem('fullscreen_pref', 'true');
+        }
+      });
+
+      // Sync fullscreen across pages
+      window.addEventListener('DOMContentLoaded', () => {
+        if (sessionStorage.getItem('fullscreen_pref') === 'true' && !document.fullscreenElement) {
+          const syncFullscreen = () => {
+            if (sessionStorage.getItem('fullscreen_pref') === 'true' && !document.fullscreenElement) {
+              document.documentElement.requestFullscreen().catch(() => {});
+            }
+            window.removeEventListener('mousedown', syncFullscreen);
+          };
+          window.addEventListener('mousedown', syncFullscreen);
+          
+          const text = document.getElementById("fullscreen-text");
+          if (text) text.textContent = "Exit fullscreen mode";
+        }
+      });
+
+      // Mark navigation to avoid clearing pref immediately
+      window.addEventListener('beforeunload', () => {
+        window._navigating = true;
+      });
     </script>
   </body>
 </html>
