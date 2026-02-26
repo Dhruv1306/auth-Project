@@ -38,6 +38,9 @@ app.use(passport.session());
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "src/views"));
 
+// Serve static files (CSS, JS, images) from /src
+app.use(express.static(path.join(__dirname, "src")));
+
 // Health check for UptimeRobot / Keep-alive
 app.get("/health", (req, res) => res.status(200).send("OK"));
 
