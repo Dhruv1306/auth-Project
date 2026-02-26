@@ -38,14 +38,22 @@ app.use(passport.session());
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "src/views"));
 
-// Serve static files (CSS, JS, images) from /src
-app.use(express.static(path.join(__dirname, "src")));
+// Health check for UptimeRobot / Keep-alive
+app.get("/health", (req, res) => res.status(200).send("OK"));
 
 // Use OAuth routes
 app.use("/", oauthRoutes);
+
+// Global Error Handler (Must be after routes)
+const errorHandler = require("./src/middleware/errorHandler");
+app.use(errorHandler);
 
 app.listen(config.server.port, () => {
   console.log(
     `Authorization Server running on http://localhost:${config.server.port}`,
   );
+  
+  // Start the database heartbeat to prevent hibernation/sleep
+  const { startHeartbeat } = require("./src/services/heartbeatService");
+  startHeartbeat(5); // Ping every 5 minutes
 });
