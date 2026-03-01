@@ -65,5 +65,5 @@ app.listen(config.server.port, () => {
   
   // Start the database heartbeat to prevent hibernation/sleep
   const { startHeartbeat } = require("./src/services/heartbeatService");
-  startHeartbeat(5); // Ping every 5 minutes
+  startHeartbeat(1); // Ping every 1 minute
 });
