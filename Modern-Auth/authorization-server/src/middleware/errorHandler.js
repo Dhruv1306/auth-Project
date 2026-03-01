@@ -52,9 +52,8 @@ function errorHandler(err, req, res, next) {
   const statusCode = err.status || 500;
   res.status(statusCode).json({
     error: statusCode === 500 ? 'Internal Server Error' : 'Error',
-    message: process.env.NODE_ENV === 'production' 
-      ? 'An unexpected error occurred.' 
-      : err.message
+    message: err.message, // Show actual error message for debugging
+    stack: process.env.NODE_ENV === 'production' ? null : err.stack
   });
 }
 
