@@ -54,7 +54,17 @@ app.set("views", path.join(__dirname, "src/views"));
 app.use(express.static(path.join(__dirname, "src")));
 
 // Health check for UptimeRobot / Keep-alive
-app.get("/health", (req, res) => res.status(200).send("OK"));
+// Pings the database too — so UptimeRobot indirectly monitors both the server AND Aiven DB
+const db = require("./src/config/database");
+app.get("/health", async (req, res) => {
+    try {
+        await db.query("SELECT 1");  // Lightweight DB ping
+        res.status(200).json({ status: "ok", database: "connected" });
+    } catch (err) {
+        // If DB is down, return 503 — UptimeRobot will treat this as a failure and alert you
+        res.status(503).json({ status: "error", database: "unreachable", detail: err.message });
+    }
+});
 
 // Use OAuth routes
 app.use("/", oauthRoutes);
