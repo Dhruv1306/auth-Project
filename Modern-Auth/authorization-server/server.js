@@ -18,7 +18,7 @@ app.use(cors({
         const allowedOrigins = [
             process.env.CLIENT_URL,
             'http://localhost:3000',
-            'http://localhost:3010',
+            'http://localhost:3010',                     // to run locally
             'https://modern-auth-server.onrender.com'   // Allow the auth server's own domain for login/register form submissions
         ];
         if (!origin || allowedOrigins.includes(origin)) {
