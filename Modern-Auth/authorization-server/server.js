@@ -15,7 +15,12 @@ const app = express();
 app.use(bodyParser);
 app.use(cors({
     origin: function (origin, callback) {
-        const allowedOrigins = [process.env.CLIENT_URL, 'http://localhost:3000', 'http://localhost:3010'];   // this "3010" is put here, so to allow the local login form. 
+        const allowedOrigins = [
+            process.env.CLIENT_URL,
+            'http://localhost:3000',
+            'http://localhost:3010',
+            'https://modern-auth-server.onrender.com'   // Allow the auth server's own domain for login/register form submissions
+        ];
         if (!origin || allowedOrigins.includes(origin)) {
             callback(null, true);
         } else {
