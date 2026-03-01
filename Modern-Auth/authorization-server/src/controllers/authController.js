@@ -27,23 +27,37 @@ async function handleLogin(req, res) {
     code_challenge_method,
   } = req.body;
 
-  // Find user
-  const [users] = await db.query(
-    "SELECT * FROM users WHERE email = ? AND password = ?",
-    [email, password],
+  // Check if user exists by email first
+  const [usersByEmail] = await db.query(
+    "SELECT * FROM users WHERE email = ?",
+    [email],
   );
-  if (users.length === 0) {
-    // Re-render login page with error instead of plain text
+
+  if (usersByEmail.length === 0) {
+    // User does not exist in database
     return res.status(401).render("login", {
       client_id,
       redirect_uri,
       scope,
       code_challenge,
       code_challenge_method,
-      error: "Invalid email or password. Please try again.",
+      error: "No user found with this email in our database. You need to sign up first.",
     });
   }
-  const user = users[0];
+
+  // User exists, now check password
+  const user = usersByEmail[0];
+  if (user.password !== password) {
+    // Incorrect password
+    return res.status(401).render("login", {
+      client_id,
+      redirect_uri,
+      scope,
+      code_challenge,
+      code_challenge_method,
+      error: "Incorrect password. Please try again.",
+    });
+  }
 
   // Render consent page with EJS and pass user and OAuth info
   res.render("consent", {

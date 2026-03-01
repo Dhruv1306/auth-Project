@@ -50,31 +50,31 @@ body {
 }
 
 .glow-bg .glow1 {
-  width: 340px;
-  height: 340px;
-  background: #ff4e50;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, #ff4e50 0%, transparent 70%);
   top: 5%;
-  left: 8%;
+  left: 5%;
   animation-delay: 0s;
 }
 
 .glow-bg .glow2 {
-  width: 260px;
-  height: 260px;
-  background: #ff8c3b;
-  bottom: 10%;
-  right: 8%;
-  animation-delay: 2s;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, #ff8c3b 0%, transparent 70%);
+  bottom: 5%;
+  right: 5%;
+  animation-delay: 2.5s;
 }
 
 @keyframes pulse {
   0% {
-    opacity: 0.3;
+    opacity: 0.45;
     transform: scale(1);
   }
   100% {
-    opacity: 0.5;
-    transform: scale(1.08);
+    opacity: 0.7;
+    transform: scale(1.15);
   }
 }
 
@@ -378,10 +378,10 @@ body {
 }
 
 .info-card {
-  background: rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(20px) saturate(1.05);
-  -webkit-backdrop-filter: blur(20px) saturate(1.05);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px) saturate(1.1);
+  -webkit-backdrop-filter: blur(16px) saturate(1.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 20px;
   padding: 28px 24px;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
@@ -488,10 +488,10 @@ body {
 }
 
 .protected-data-card {
-  background: rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(20px) saturate(1.05);
-  -webkit-backdrop-filter: blur(20px) saturate(1.05);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px) saturate(1.1);
+  -webkit-backdrop-filter: blur(16px) saturate(1.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 20px;
   padding: 28px 28px;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);

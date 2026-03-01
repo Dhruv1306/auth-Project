@@ -15,7 +15,7 @@ const app = express();
 app.use(bodyParser);
 app.use(cors({
     origin: function (origin, callback) {
-        const allowedOrigins = [process.env.CLIENT_URL, 'http://localhost:3000'];
+        const allowedOrigins = [process.env.CLIENT_URL, 'http://localhost:3000', 'http://localhost:3010'];   // this "3010" is put here, so to allow the local login form. 
         if (!origin || allowedOrigins.includes(origin)) {
             callback(null, true);
         } else {
