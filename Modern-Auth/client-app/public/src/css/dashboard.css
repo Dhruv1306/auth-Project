@@ -79,28 +79,30 @@ body {
 }
 
 /* ============================================
-   Navbar — Glassmorphic
+   Navbar — Glassmorphic (Dashboard — Icon-only with hover expand)
    ============================================ */
 .navbar {
   width: 100%;
-  background: rgba(10, 10, 12, 0.45);
-  backdrop-filter: blur(12px) saturate(1.2);
-  -webkit-backdrop-filter: blur(12px) saturate(1.2);
+  background: rgba(10, 10, 12, 0.55);
+  backdrop-filter: blur(18px) saturate(1.4);
+  -webkit-backdrop-filter: blur(18px) saturate(1.4);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 48px;
-  height: 72px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  gap: 16px;
+  padding: 0 32px;
+  height: 64px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
   box-shadow:
-    0 4px 24px rgba(0, 0, 0, 0.3),
-    0 1px 0 rgba(255, 255, 255, 0.03) inset;
+    0 4px 24px rgba(0, 0, 0, 0.35),
+    0 1px 0 rgba(255, 255, 255, 0.04) inset;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 100;
-  overflow: hidden;
+  /* NO overflow:hidden — was clipping items */
+  flex-wrap: nowrap;
 }
 
 /* Cursor-following glow */
@@ -125,17 +127,18 @@ body {
 .navbar-logo {
   display: flex;
   align-items: center;
-  gap: 12px;
-  flex-shrink: 0;
+  gap: 10px;
+  flex-shrink: 0;           /* logo never shrinks */
+  min-width: fit-content;   /* always reserves space */
   text-decoration: none;
   position: relative;
   z-index: 1;
 }
 
 .navbar-logo-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 12px;
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
@@ -143,20 +146,21 @@ body {
   justify-content: center;
   position: relative;
   overflow: hidden;
+  flex-shrink: 0;
 }
 
 .navbar-logo-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 11px;
+  border-radius: 10px;
 }
 
 .navbar-logo-icon::before {
   content: "";
   position: absolute;
   inset: -1px;
-  border-radius: 12px;
+  border-radius: 11px;
   padding: 1px;
   background: linear-gradient(135deg, rgba(255,140,59,0.5), transparent 60%);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
@@ -168,84 +172,177 @@ body {
 }
 
 .navbar-title {
-  font-size: 1.3rem;
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
   font-weight: 700;
   letter-spacing: 0.5px;
   background: linear-gradient(135deg, #ffb87a, #ff8c3b);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  white-space: nowrap;
 }
 
+/* ============================================
+   Dashboard Navbar Links — Icon-only with hover expand
+   On small screens: shows icon only, hover shows icon + label that slides in
+   ============================================ */
 .navbar-links {
   display: flex;
-  gap: 6px;
+  gap: 4px;
   align-items: center;
   position: relative;
   z-index: 1;
+  flex-shrink: 0;    /* links block doesn't shrink either */
+  min-width: 0;
+  flex-wrap: nowrap;
 }
 
+/* Each nav link: icon-only by default, expands with label on hover */
 .navbar-link {
   display: flex;
   align-items: center;
+  justify-content: center;
   color: #9ca3af;
   text-decoration: none;
   font-weight: 500;
-  font-size: 0.95rem;
-  padding: 8px 16px;
+  font-size: 0.88rem;
+  padding: 8px;
   border-radius: 12px;
   white-space: nowrap;
-  transition: all 0.25s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border: 1px solid transparent;
+  overflow: hidden;
+  /* Icon container only by default */
+  max-width: 38px;
+  flex-shrink: 0;
+  position: relative;
 }
 
-.navbar-link:hover {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.08);
-  color: #fff;
+/* The text label inside the link — hidden by default */
+.navbar-link .nav-label {
+  max-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  opacity: 0;
+  transition:
+    max-width 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.25s ease,
+    margin-left 0.3s ease;
+  margin-left: 0;
+  display: inline-block;
+  font-size: 0.88rem;
 }
 
+/* SVG icon in nav link */
 .navbar-link svg {
-  opacity: 0.5;
-  transition: opacity 0.25s ease;
+  opacity: 0.55;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
 }
 
-.navbar-link:hover svg {
-  opacity: 1;
-}
-
+/* Active state */
 .navbar-link.active {
   background: linear-gradient(135deg, #ff8c3b 0%, #ff6b5a 100%);
   color: #fff;
   font-weight: 600;
   border: none;
+  max-width: 38px; /* stays icon only unless hovered */
+  padding: 8px 10px;
 }
 
 .navbar-link.active svg {
   opacity: 1;
 }
 
+/* Hover: expand to show label */
+.navbar-link:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  max-width: 160px;   /* expand to fit label */
+  padding: 8px 12px;
+}
+.navbar-link.active:hover {
+  background: linear-gradient(135deg, #ff8c3b 0%, #ff6b5a 100%);
+  border: none;
+  max-width: 140px;
+}
+
+.navbar-link:hover svg {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* Show label on hover */
+.navbar-link:hover .nav-label {
+  max-width: 120px;
+  opacity: 1;
+  margin-left: 7px;
+}
+
+/* Logout button — same icon-only expand behaviour */
 .navbar-logout-btn {
   display: flex;
   align-items: center;
+  justify-content: center;
   font-family: "Montserrat", Arial, sans-serif;
-  font-size: 0.95rem;
+  font-size: 0.88rem;
   font-weight: 600;
   color: #9ca3af;
   background: transparent;
   border: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 8px 18px;
+  padding: 8px;
   border-radius: 12px;
   cursor: pointer;
   white-space: nowrap;
-  transition: all 0.25s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   outline: none;
+  overflow: hidden;
+  max-width: 38px;
+  flex-shrink: 0;
+}
+
+.navbar-logout-btn .nav-label {
+  max-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  opacity: 0;
+  transition:
+    max-width 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.25s ease,
+    margin-left 0.3s ease;
+  margin-left: 0;
+  display: inline-block;
+  font-size: 0.88rem;
+}
+
+.navbar-logout-btn svg {
+  opacity: 0.55;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
 }
 
 .navbar-logout-btn:hover {
   color: #ff6b5a;
   border-color: rgba(255, 107, 90, 0.3);
-  background: rgba(255, 107, 90, 0.06);
+  background: rgba(255, 107, 90, 0.07);
+  max-width: 120px;
+  padding: 8px 12px;
+}
+
+.navbar-logout-btn:hover svg {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.navbar-logout-btn:hover .nav-label {
+  max-width: 80px;
+  opacity: 1;
+  margin-left: 7px;
 }
 
 /* ============================================
@@ -255,9 +352,9 @@ body {
   position: relative;
   z-index: 2;
   width: 100%;
-  max-width: 900px;
+  max-width: 860px;
   margin: 0 auto;
-  padding: 86px 24px 40px 24px;
+  padding: 88px 20px 48px 20px;
   flex: 1 0 auto;
 }
 
@@ -284,8 +381,8 @@ body {
 
 /* Avatar */
 .profile-avatar {
-  width: 100px;
-  height: 100px;
+  width: 96px;
+  height: 96px;
   border-radius: 50%;
   background: linear-gradient(135deg, #ff8c3b 0%, #ff4e50 100%);
   display: flex;
@@ -311,7 +408,7 @@ body {
 }
 
 .profile-avatar span {
-  font-size: 2.2rem;
+  font-size: 2rem;
   font-weight: 700;
   color: #fff;
   letter-spacing: 2px;
@@ -320,7 +417,7 @@ body {
 
 /* Name & Greeting */
 .profile-name {
-  font-size: 2rem;
+  font-size: clamp(1.5rem, 4vw, 2rem);
   font-weight: 700;
   margin-bottom: 8px;
   letter-spacing: 0.5px;
@@ -331,7 +428,7 @@ body {
 }
 
 .profile-greeting {
-  font-size: 1.1rem;
+  font-size: clamp(0.92rem, 2.2vw, 1.1rem);
   color: #8a919a;
   font-weight: 400;
   margin-bottom: 24px;
@@ -424,7 +521,7 @@ body {
   gap: 10px;
   margin-bottom: 22px;
   font-weight: 700;
-  font-size: 1rem;
+  font-size: clamp(0.9rem, 2.2vw, 1rem);
   color: #fff;
   letter-spacing: 0.3px;
 }
@@ -441,6 +538,7 @@ body {
   align-items: center;
   padding-bottom: 12px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  gap: 12px;
 }
 
 .info-row:last-child {
@@ -449,19 +547,21 @@ body {
 }
 
 .info-label {
-  font-size: 0.85rem;
+  font-size: clamp(0.75rem, 1.8vw, 0.85rem);
   font-weight: 500;
   color: #6b7280;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  flex-shrink: 0;
 }
 
 .info-value {
-  font-size: 0.95rem;
+  font-size: clamp(0.82rem, 1.8vw, 0.95rem);
   font-weight: 600;
   color: #d4d8de;
   text-align: right;
   word-break: break-all;
+  min-width: 0;
 }
 
 .info-badge {
@@ -469,9 +569,10 @@ body {
   color: #ff8c3b;
   padding: 4px 12px;
   border-radius: 20px;
-  font-size: 0.82rem;
+  font-size: clamp(0.75rem, 1.8vw, 0.82rem);
   font-weight: 600;
   letter-spacing: 0.3px;
+  white-space: nowrap;
 }
 
 .info-badge-green {
@@ -493,7 +594,7 @@ body {
   -webkit-backdrop-filter: blur(16px) saturate(1.1);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 20px;
-  padding: 28px 28px;
+  padding: 28px;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
   position: relative;
   overflow: hidden;
@@ -523,7 +624,7 @@ body {
 }
 
 .protected-data-desc {
-  font-size: 0.92rem;
+  font-size: clamp(0.85rem, 2vw, 0.92rem);
   color: #8a919a;
   margin-bottom: 20px;
   line-height: 1.6;
@@ -533,19 +634,21 @@ body {
   display: inline-flex;
   align-items: center;
   font-family: "Montserrat", Arial, sans-serif;
-  font-size: 1rem;
+  font-size: clamp(0.88rem, 2vw, 1rem);
   font-weight: 700;
   color: #fff;
   background: linear-gradient(90deg, var(--accent, #ff8c3b) 0%, #ff4e50 100%);
   border: none;
   border-radius: 14px;
-  padding: 14px 28px;
+  padding: 13px 26px;
   cursor: pointer;
   box-shadow: 0 4px 16px rgba(255, 76, 80, 0.25);
   transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
   outline: none;
   position: relative;
   overflow: hidden;
+  width: 100%;
+  justify-content: center;
 }
 
 .fetch-btn::after {
@@ -591,9 +694,9 @@ body {
   background: rgba(0, 0, 0, 0.4);
   border: 1px solid rgba(255, 140, 59, 0.15);
   border-radius: 14px;
-  padding: 20px;
+  padding: 18px;
   font-family: 'Courier New', monospace;
-  font-size: 0.88rem;
+  font-size: clamp(0.75rem, 1.8vw, 0.88rem);
   color: #d4d8de;
   overflow-x: auto;
   line-height: 1.6;
@@ -601,168 +704,107 @@ body {
 }
 
 /* ============================================
-   Footer
+   Footer — Clean & Elegant
    ============================================ */
 .footer {
   width: 100%;
-  background: transparent;
-  padding: 32px 48px;
   position: relative;
   z-index: 10;
   margin-top: 40px;
   flex-shrink: 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.03);
+  padding: 20px 36px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  background: transparent;
 }
+
+.footer-inner {
+  width: 100%;
+}
+
 .footer-content {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  max-width: 1200px;
-  margin: 0 auto;
-  color: #8a919a;
-  font-size: 0.85rem;
+  gap: 16px;
+  flex-wrap: wrap;
 }
+
 .footer-controls {
   display: flex;
-  gap: 20px;
+  gap: 8px;
+  flex-shrink: 0;
 }
+
 .footer-control-btn {
   background: none;
   border: none;
-  color: #6b7280;
+  color: #4b5563;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 0.85rem;
+  gap: 7px;
+  font-size: 0.92rem;
   font-family: inherit;
   transition: all 0.2s ease;
   padding: 6px 10px;
   border-radius: 8px;
+  white-space: nowrap;
+  letter-spacing: 0.2px;
 }
+
 .footer-control-btn:hover {
-  color: #fff;
-  background: rgba(255, 255, 255, 0.05);
+  color: #9ca3af;
+  background: rgba(255, 255, 255, 0.04);
 }
+
 .footer-control-btn svg {
-  opacity: 0.7;
+  opacity: 0.5;
+  flex-shrink: 0;
+  transition: opacity 0.2s ease;
 }
+
 .footer-control-btn:hover svg {
-  opacity: 1;
+  opacity: 0.8;
 }
+
 .footer-info {
-  text-align: right;
-  line-height: 1.4;
-}
-.footer-info p {
-  margin: 2px 0 0 0;
-}
-.footer-info strong {
-  color: #d1d5db;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1px;
 }
 
-/* ============================================
-   Responsive
-   ============================================ */
-@media (max-width: 768px) {
-  .navbar {
-    padding: 0 20px;
-  }
-
-  .navbar-links {
-    gap: 4px;
-  }
-
-  .navbar-link,
-  .navbar-logout-btn {
-    font-size: 0.88rem;
-    padding: 7px 12px;
-  }
-
-  .dashboard-main {
-    padding: 100px 16px 32px 16px;
-  }
-
-  .profile-cards {
-    grid-template-columns: 1fr;
-    gap: 18px;
-  }
-
-  .profile-hero {
-    padding: 32px 16px 28px 16px;
-  }
-
-  .profile-name {
-    font-size: 1.5rem;
-  }
-
-  .profile-avatar {
-    width: 80px;
-    height: 80px;
-  }
-
-  .profile-avatar span {
-    font-size: 1.7rem;
-  }
+.footer-copyright {
+  font-size: 0.88rem;
+  color: #4b5563;
+  letter-spacing: 0.3px;
 }
 
-@media (max-width: 480px) {
-  .navbar {
-    padding: 0 12px;
-    height: auto;
-    flex-wrap: wrap;
-    gap: 8px;
-    padding-top: 12px;
-    padding-bottom: 12px;
-  }
+.footer-author {
+  font-size: 0.92rem;
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
 
-  .navbar-link span,
-  .navbar-logout-btn span {
-    display: none;
-  }
+.footer-author strong {
+  color: #6b7280;
+  font-weight: 600;
+}
 
-  .navbar-link,
-  .navbar-logout-btn {
-    padding: 8px;
-    font-size: 0;
-  }
+.footer-heart {
+  font-size: 0.78rem;
+  animation: heartbeat 1.8s ease-in-out infinite;
+  display: inline-block;
+}
 
-  .navbar-link svg,
-  .navbar-logout-btn svg {
-    margin-right: 0 !important;
-  }
-
-  .dashboard-main {
-    padding: 90px 12px 24px 12px;
-  }
-
-  .info-card {
-    padding: 20px 16px;
-  }
-
-  .protected-data-card {
-    padding: 20px 16px;
-  }
-
-  .fetch-btn {
-    width: 100%;
-    justify-content: center;
-    padding: 13px 20px;
-  }
-
-  .danger-zone-card {
-    padding: 20px 16px;
-  }
-
-  .delete-account-btn {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .delete-modal {
-    margin: 16px;
-    padding: 28px 20px;
-  }
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  15% { transform: scale(1.25); }
+  30% { transform: scale(1); }
+  45% { transform: scale(1.1); }
+  60% { transform: scale(1); }
 }
 
 /* ============================================
@@ -810,13 +852,13 @@ body {
   gap: 10px;
   margin-bottom: 12px;
   font-weight: 700;
-  font-size: 1.05rem;
+  font-size: clamp(0.95rem, 2.2vw, 1.05rem);
   color: #ef4444;
 }
 
 .danger-zone-desc {
   color: #8a919a;
-  font-size: 0.9rem;
+  font-size: clamp(0.82rem, 1.8vw, 0.9rem);
   line-height: 1.5;
   margin-bottom: 20px;
 }
@@ -835,11 +877,13 @@ body {
   background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
   color: #fff;
   font-family: inherit;
-  font-size: 0.92rem;
+  font-size: clamp(0.85rem, 2vw, 0.92rem);
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
   box-shadow: 0 4px 16px rgba(239, 68, 68, 0.2);
+  width: 100%;
+  justify-content: center;
 }
 
 .delete-account-btn:hover {
@@ -869,6 +913,7 @@ body {
   align-items: center;
   justify-content: center;
   animation: modalFadeIn 0.25s ease;
+  padding: 16px;
 }
 
 @keyframes modalFadeIn {
@@ -914,7 +959,7 @@ body {
 }
 
 .delete-modal h3 {
-  font-size: 1.3rem;
+  font-size: clamp(1.1rem, 3vw, 1.3rem);
   color: #ef4444;
   margin-bottom: 10px;
   font-weight: 700;
@@ -922,7 +967,7 @@ body {
 
 .delete-modal p {
   color: #8a919a;
-  font-size: 0.9rem;
+  font-size: clamp(0.82rem, 2vw, 0.9rem);
   line-height: 1.6;
   margin-bottom: 24px;
 }
@@ -945,7 +990,7 @@ body {
   background: rgba(255, 255, 255, 0.05);
   color: #b0b8c1;
   font-family: inherit;
-  font-size: 0.92rem;
+  font-size: clamp(0.82rem, 2vw, 0.92rem);
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -964,7 +1009,7 @@ body {
   background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
   color: #fff;
   font-family: inherit;
-  font-size: 0.92rem;
+  font-size: clamp(0.82rem, 2vw, 0.92rem);
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -975,4 +1020,174 @@ body {
   background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
   box-shadow: 0 6px 20px rgba(239, 68, 68, 0.35);
   transform: translateY(-1px);
+}
+
+/* ============================================
+   Toast Notifications — Dashboard
+   ============================================ */
+#toast-container {
+  position: fixed;
+  top: 76px;
+  right: 16px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  pointer-events: none;
+  max-width: calc(100vw - 32px);
+}
+
+/* ============================================
+   RESPONSIVE — Large Tablet (≤ 1024px)
+   ============================================ */
+@media (max-width: 1024px) {
+  .navbar {
+    padding: 0 24px;
+    gap: 12px;
+  }
+  .dashboard-main {
+    padding: 84px 16px 40px 16px;
+  }
+}
+
+/* ============================================
+   RESPONSIVE — Tablet (≤ 768px)
+   ============================================ */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0 16px;
+    height: 60px;
+    gap: 10px;
+  }
+  .navbar-links { gap: 3px; }
+  .dashboard-main { padding: 80px 14px 36px 14px; }
+  .profile-cards { grid-template-columns: 1fr; gap: 18px; }
+  .profile-hero { padding: 24px 16px; margin-bottom: 28px; }
+  .profile-name { font-size: 1.5rem; }
+  .profile-avatar { width: 82px; height: 82px; }
+  .profile-avatar span { font-size: 1.7rem; }
+
+  /* Footer stays side-by-side on tablet — hug corners */
+  .footer { padding: 20px 24px; margin-top: 32px; }
+  .footer-content {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: nowrap;
+  }
+  .footer-info { align-items: flex-end; }
+}
+
+/* ============================================
+   RESPONSIVE — Large Mobile (≤ 480px)
+   Covers 420px, 450px, 475px, 480px
+   ============================================ */
+@media (max-width: 480px) {
+  .navbar { padding: 0 12px; height: 58px; gap: 8px; }
+  .navbar-logo-icon { width: 32px; height: 32px; }
+  .navbar-title { font-size: 0.95rem; }
+  .navbar-links { gap: 2px; }
+
+  .navbar-link { padding: 7px; max-width: 34px; }
+  .navbar-link:hover { max-width: 130px; padding: 7px 10px; }
+  .navbar-logout-btn { padding: 7px; max-width: 34px; }
+  .navbar-logout-btn:hover { max-width: 100px; padding: 7px 10px; }
+
+  .dashboard-main { padding: 76px 12px 28px 12px; }
+  .info-card { padding: 20px 16px; }
+  .protected-data-card { padding: 20px 16px; }
+  .danger-zone-card { padding: 20px 16px; }
+  .delete-modal { padding: 28px 20px; }
+
+  #toast-container {
+    top: 68px;
+    right: 8px;
+    left: 8px;
+    max-width: calc(100vw - 16px);
+  }
+
+  /* Footer stays side-by-side at 420/475px — hug corners */
+  .footer { padding: 18px 20px; margin-top: 24px; }
+  .footer-content {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    flex-wrap: nowrap;
+  }
+  .footer-info { align-items: flex-end; }
+}
+
+/* ============================================
+   RESPONSIVE — Small Mobile (≤ 390px)
+   ============================================ */
+@media (max-width: 390px) {
+  .navbar { padding: 0 10px; height: 56px; gap: 6px; }
+  .navbar-logo-icon { width: 30px; height: 30px; }
+  .navbar-title { font-size: 0.88rem; }
+  .navbar-link, .navbar-logout-btn { padding: 6px; max-width: 32px; }
+  .dashboard-main { padding: 72px 10px 24px 10px; }
+  .profile-avatar { width: 72px; height: 72px; }
+  .profile-avatar span { font-size: 1.5rem; }
+  .profile-name { font-size: 1.3rem; }
+  .delete-modal { padding: 24px 16px; }
+
+  /* Footer: side-by-side, tighter padding */
+  .footer { padding: 16px 14px; }
+  .footer-content {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+  }
+  .footer-info { align-items: flex-end; }
+}
+
+/* ============================================
+   RESPONSIVE — Extra Small Mobile (≤ 380px)
+   Hides navbar title; centres footer
+   ============================================ */
+@media (max-width: 380px) {
+  /* Hide "Modern Auth" text so nav icons + logout fit */
+  .navbar-title { display: none; }
+  .navbar { padding: 0 10px; gap: 6px; }
+  .navbar-link, .navbar-logout-btn { padding: 6px; max-width: 32px; }
+
+  /* Footer: stack + centre at 375px / 320px */
+  .footer { padding: 20px 16px; }
+  .footer-content {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-align: center;
+  }
+  .footer-controls { justify-content: center; }
+  .footer-info { align-items: center; }
+  .footer-author, .footer-copyright {
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+/* ============================================
+   RESPONSIVE — 425px device (≤ 430px, > 380px)
+   Footer: stack + centre (matches 375px look)
+   ============================================ */
+@media (max-width: 430px) {
+  .footer { padding: 20px 16px; }
+  .footer-content {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-align: center;
+  }
+  .footer-controls { justify-content: center; }
+  .footer-info { align-items: center; }
+  .footer-author, .footer-copyright {
+    justify-content: center;
+    text-align: center;
+  }
 }

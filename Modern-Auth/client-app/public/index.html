@@ -41,7 +41,13 @@
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="vertical-align: -2px; margin-right: 6px;"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/><path d="M12 16V12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="8" r="1" fill="currentColor"/></svg>
           About
         </a>
-        <a id="nav-auth-btn" href="#login" class="navbar-login" onclick="login();return false;">Login</a>
+        <a id="nav-auth-btn" href="#login" class="navbar-login" onclick="login();return false;" style="display:inline-flex;align-items:center;gap:6px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;vertical-align:middle;">
+            <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2"/>
+            <path d="M4 20C4 16.69 7.58 14 12 14C16.42 14 20 16.69 20 20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          Login
+        </a>
       </nav>
     </header>
     <main class="main-content">
@@ -224,16 +230,18 @@
       </section>
     </main>
     <footer class="footer">
-      <div class="footer-content">
-        <div class="footer-controls">
-          <button id="fullscreen-btn" class="footer-control-btn" onclick="toggleFullscreen()" title="Toggle Fullscreen">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
-            <span id="fullscreen-text">Fullscreen mode</span>
-          </button>
-        </div>
-        <div class="footer-info">
-          <span>&copy; 2026 Modern Auth</span>
-          <p>Built with ❤️ by <strong>Dhruv Singh Dalal</strong></p>
+      <div class="footer-inner">
+        <div class="footer-content">
+          <div class="footer-controls">
+            <button id="fullscreen-btn" class="footer-control-btn" onclick="toggleFullscreen()" title="Toggle Fullscreen">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+              <span id="fullscreen-text">Fullscreen</span>
+            </button>
+          </div>
+          <div class="footer-info">
+            <span class="footer-copyright">&copy; 2026 Modern Auth</span>
+            <span class="footer-author">Built with <span class="footer-heart">❤️</span> by <strong>Dhruv Singh Dalal</strong></span>
+          </div>
         </div>
       </div>
     </footer>
